@@ -1,0 +1,59 @@
+﻿<Window x:Class="CougHacksApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CougHacksApp"
+        xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        mc:Ignorable="d"
+        Title="Recipe Finder" Height="450" Width="800">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="7*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Left portiton for ingredients interface-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                </Grid.RowDefinitions>
+                
+                <!--User textBox-->
+                <Grid Grid.Row="0">
+                    <StackPanel VerticalAlignment="Stretch">
+                        <!--Text header-->
+                        <TextBlock Text="Ingredients" FontSize="25" HorizontalAlignment="Center"/>
+                        
+                        <!--Search Box-->
+                        <TextBox x:Name="SearchTextBox" Text="Search" Height="25" 
+                                 VerticalAlignment="Top" KeyUp="SearchTextBox_KeyUp"
+                                 GotFocus="SearchTextBox_GotFocus" LostFocus="SearchTextBox_LostFocus"/>
+                        <Popup x:Name="SuggestionsPopup" Placement="Bottom" 
+                               PlacementTarget="{Binding ElementName=SearchTextBox}" 
+                               StaysOpen="False" IsOpen="False">
+                            <ListBox x:Name="SuggestionsListBox" Width="{Binding ActualWidth, ElementName=SearchTextBox}" 
+                                     SelectionChanged="SuggestionsListBox_SelectionChanged"/>
+                        </Popup>
+                        
+                        
+                        
+                        
+                    </StackPanel>
+                    <!--Selected Ingredient-->
+                    <WrapPanel x:Name="TagsPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,30,0,0"/>
+
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    
+                </Grid>
+
+            </Grid>
+            
+            
+        </Grid>    
+    </Grid>
+</Window>
