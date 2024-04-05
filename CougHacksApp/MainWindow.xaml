@@ -50,9 +50,22 @@
                     <!--Selected Ingredient-->
                     <GroupBox Grid.Row="1" Header="Selected Ingredient" Margin="10,5,10,5">
                         <ScrollViewer Margin="5">
-                            <WrapPanel x:Name="TagsPanel" Orientation="Horizontal" 
-                                       VerticalAlignment="Top"
-                                       />
+                            <ItemsControl ItemsSource="{Binding SelectedIngredients}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <Label Content="{Binding}" Margin="2"/>
+                                            <Button Content="X" Margin="2" Padding="2" VerticalAlignment="Center" FontSize="10"
+                                                    Click="TagButton_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </ScrollViewer>
                     </GroupBox>
                     

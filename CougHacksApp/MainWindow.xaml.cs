@@ -1,13 +1,7 @@
-﻿using System.Text;
+﻿using CougHacksApp.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CougHacksApp
 {
@@ -16,9 +10,13 @@ namespace CougHacksApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private IngredientViewModel ingredientVM;
+
         public MainWindow()
         {
             InitializeComponent();
+            this.ingredientVM = new IngredientViewModel();
+            this.DataContext =this.ingredientVM;
         }
 
         private List<string> _suggestions = new List<string>
@@ -56,7 +54,7 @@ namespace CougHacksApp
                 // Get text box selection.
                 string selectedText = SuggestionsListBox.SelectedItem.ToString();
                 SearchTextBox.Text = "Search";
-                CreateTag(selectedText);
+                this.ingredientVM.AddIngredients(selectedText);
                 SuggestionsPopup.IsOpen = false;
                 // Optionally, move focus back to the text box
                 //SearchTextBox.Focus();
@@ -81,50 +79,13 @@ namespace CougHacksApp
             }
         }
 
-        private void CreateTag(string tagText)
-        {
-            // StackPanel to hold the label and button
-            StackPanel tagPanel = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                Margin = new Thickness(5)
-            };
-
-            // Label for the tag text
-            Label tagLabel = new Label
-            {
-                Content = tagText,
-                Margin = new Thickness(2)
-            };
-
-            // Button to remove the tag, with "X" as content
-            Button deleteButton = new Button
-            {
-                Content = "X",
-                Margin = new Thickness(2),
-                Padding = new Thickness(2),
-                VerticalAlignment = VerticalAlignment.Center,
-                FontSize = 10 // Adjust as needed
-            };
-            deleteButton.Click += (sender, e) =>
-            {
-                TagsPanel.Children.Remove(tagPanel); // Remove the entire StackPanel
-            };
-
-            // Add the label and button to the StackPanel
-            tagPanel.Children.Add(tagLabel);
-            tagPanel.Children.Add(deleteButton);
-
-            // Add the StackPanel to the TagsPanel
-            TagsPanel.Children.Add(tagPanel); ;
-        }
-
         private void TagButton_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
-            if (button != null)
+            if (button != null && button.DataContext is string tag)
             {
-                TagsPanel.Children.Remove(button); // Remove the tag from the display
+                var ingredientVM = DataContext as IngredientViewModel;
+                ingredientVM.SelectedIngredients.Remove(tag);
             }
         }
     }
