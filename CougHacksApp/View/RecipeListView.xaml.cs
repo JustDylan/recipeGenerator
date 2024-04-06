@@ -24,8 +24,7 @@ namespace CougHacksApp.View
                 selectedItem = value;
             }
         }
-
-
+    
         public RecipeListView(RecipeViewModel rec,Profile profile, bool isFav = true)
         {
             InitializeComponent();
@@ -68,7 +67,7 @@ namespace CougHacksApp.View
 
         private void AddFavBtn_Click(object sender, RoutedEventArgs e)
         {
-            //this.profile.AddFavorite(prevRec);
+            this.profile.AddFavorite(prevRec.rec);
             this.Recipes.Add(prevRec);
         }
 

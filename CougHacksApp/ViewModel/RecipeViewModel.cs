@@ -11,6 +11,7 @@ namespace CougHacksApp.ViewModel
     
     public class RecipeViewModel : ViewModelBase
     {
+        public readonly Recipe rec;
         private string name;
 
         public string Name
@@ -95,6 +96,7 @@ namespace CougHacksApp.ViewModel
 
         public RecipeViewModel(Recipe rec)
         {
+            this.rec = rec;
             this.Name = rec.Label;
             this.LinkURL = rec.Url;
             this.Ingredients = rec.Ingredients;
