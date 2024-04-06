@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Msagl.WpfGraphControl;
 using Microsoft.Msagl.Drawing;
-using RecipeQueryEngine;
+using CougHacksApp.Model;
 
 namespace CougHacksApp
 {
@@ -15,6 +15,7 @@ namespace CougHacksApp
     {
         GraphViewer graphViewer = new GraphViewer();
 
+        private Profile profile;
         
         private IngredientViewModel ingredientVM;
 
@@ -28,8 +29,10 @@ namespace CougHacksApp
             //this.Show();
             //AutomaticGraphLayoutControl test = new AutomaticGraphLayoutControl();
             //this.CreateGraph(null, null);
+
+            this.profile = new Profile();
             RecipeViewModel recipeVM = new RecipeViewModel();
-            RecipeView recipeView = new RecipeView(recipeVM);
+            RecipeView recipeView = new RecipeView(recipeVM,this.profile);
             recipeView.ShowDialog();
         }
 

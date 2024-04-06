@@ -1,4 +1,4 @@
-﻿namespace RecipeQueryEngine
+﻿namespace CougHacksApp.Model
 {
     using System.Text;
     using System.Threading.Tasks;

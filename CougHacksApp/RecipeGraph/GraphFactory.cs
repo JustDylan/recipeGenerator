@@ -27,7 +27,7 @@ using Microsoft.Msagl.Drawing;
 using Microsoft.Msagl.Layout.Layered;
 using static Microsoft.Msagl.Core.Layout.LgNodeInfo;
 using Orientation = System.Windows.Controls.Orientation;
-using RecipeQueryEngine;
+using CougHacksApp.Model;
 using System.Runtime.CompilerServices;
 
 namespace CougHacksApp.RecipeGraph
