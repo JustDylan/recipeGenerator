@@ -18,4 +18,8 @@
     <Folder Include="Icons\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RecipeQueryEngine\RecipeQueryEngine.csproj" />
+  </ItemGroup>
+
 </Project>
