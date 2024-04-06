@@ -1,7 +1,5 @@
 # RecipeGenerator
 
-![Recipe Generator Logo: An abstract, open fridge/cabinet with nodes just outside the door with connections originating from inside the container. The nodes are connected to a common node closer to the right. The upper node is yellow, the lower is green. The right node, being an interpretation of a more complex recipe is red.](https://github.com/JustDylan/recipeGenerator/blob/main/CougHacksApp/Icons/logo512.png | width=250)
-
 <p align="center">
   <img width="15%" src="https://github.com/JustDylan/recipeGenerator/blob/main/CougHacksApp/Icons/logo512.png" alttext="Recipe Generator Logo: An abstract, open fridge/cabinet with nodes just outside the door with connections originating from inside the container. The nodes are connected to a common node closer to the right. The upper node is yellow, the lower is green. The right node, being an interpretation of a more complex recipe is red.">
 </p>
