@@ -17,8 +17,10 @@
         </Border>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="AddFavBtn" Content="Add to Favorite" Height="40" Width="125" Click="AddFavBtn_Click"/>
-            <Button x:Name="View" Content="View" Height="40" Width="125" Click="View_Click"/>
+            <Button x:Name="AddFavBtn" Content="Add to Favorite" Visibility="Collapsed"
+                    Height="40" Width="125" Click="AddFavBtn_Click" Margin="10,0,10,0"/>
+            <Button x:Name="View" Content="View" Height="40" 
+                    Width="125" Click="View_Click" Margin="10,0,10,0"/>
         </StackPanel>
     </Grid>
   

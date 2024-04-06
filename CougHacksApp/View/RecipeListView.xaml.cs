@@ -33,6 +33,16 @@ namespace CougHacksApp.View
             this.prevRec = rec;
             this.profile = profile;
 
+            if(isFav) 
+            {
+                this.Title = "Favorite Recipes";
+                AddFavBtn.Visibility = Visibility.Visible; 
+            }
+            else
+            {
+                this.Title = "History";
+            }
+
             this.Recipes = new ObservableCollection<RecipeViewModel>();
 
             if(isFav)
