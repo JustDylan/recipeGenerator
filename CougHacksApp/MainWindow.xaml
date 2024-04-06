@@ -20,7 +20,7 @@
                     <RowDefinition Height="6*"/>
                     <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
-
+                
                 <!--User textBox-->
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
@@ -96,6 +96,8 @@
                     </GroupBox>
                 </Grid>
             </Grid>
-        </Grid>    
+            <DockPanel x:Name="RGraphView" Grid.Column="1"/>
+        </Grid>
+
     </Grid>
 </Window>

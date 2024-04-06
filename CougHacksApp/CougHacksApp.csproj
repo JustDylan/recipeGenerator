@@ -11,8 +11,6 @@
   <ItemGroup>
     <PackageReference Include="AutomaticGraphLayout.WpfGraphControl" Version="1.1.12" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="123.0.60" />
-    <PackageReference Include="Microsoft.Msagl" Version="1.1.6" />
-    <PackageReference Include="Microsoft.Msagl.Drawing" Version="1.1.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 

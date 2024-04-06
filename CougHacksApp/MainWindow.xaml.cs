@@ -1,7 +1,27 @@
 ﻿using CougHacksApp.ViewModel;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using Microsoft.Msagl.Core.Geometry.Curves;
+using Microsoft.Msagl.Core.Routing;
+//using Microsoft.Msagl;
+using Microsoft.Msagl.WpfGraphControl;
+using Microsoft.Win32;
+using Color = Microsoft.Msagl.Drawing.Color;
+//using LabelPlacement = Microsoft.Msagl.Core.Layout.LabelPlacement;
+using ModifierKeys = System.Windows.Input.ModifierKeys;
+using Size = System.Windows.Size;
+using Microsoft.Msagl.Drawing;
+using Microsoft.Msagl.Layout.Layered;
+using static Microsoft.Msagl.Core.Layout.LgNodeInfo;
+using Orientation = System.Windows.Controls.Orientation;
 
 namespace CougHacksApp
 {
@@ -10,11 +30,52 @@ namespace CougHacksApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        GraphViewer graphViewer = new GraphViewer();
+
         private IngredientViewModel ingredientVM;
 
         public MainWindow()
         {
+            
+
             InitializeComponent();
+            graphViewer.BindToPanel(this.RGraphView);
+            //this.CreateGraph(null, null);
+            this.Loaded += (a, b) => CreateGraph(null, null);
+            //CreateGraph(null, null);
+            //this.Show();
+            //AutomaticGraphLayoutControl test = new AutomaticGraphLayoutControl();
+            //this.CreateGraph(null, null);
+        }
+
+        public void CreateGraph(object sender, ExecutedRoutedEventArgs ex)
+        {
+            
+            Graph graph = new Graph();
+            graph.AddEdge("A", "B");
+            graph.AddEdge("B", "A");
+            /*
+            var e = graph.AddEdge("4", "5");
+            e.LabelText = "Some edge label";
+            e.Attr.Color = Color.Red;
+            e.Attr.LineWidth *= 2;
+            graph.AddEdge("47", "58");
+            graph.AddEdge("70", "71");
+            //var tn = graph.AddNode("test");
+
+            graph.AddEdge("test", "47");
+
+            
+
+            graph.Attr.LayerDirection = LayerDirection.LR;*/
+            //graph.LayoutAlgorithmSettings.EdgeRoutingSettings.EdgeRoutingMode = EdgeRoutingMode.Rectilinear;
+
+            //var global = (SugiyamaLayoutSettings)graph.LayoutAlgorithmSettings;
+            //var local = (SugiyamaLayoutSettings)global.Clone();
+            //local.Transformation = PlaneTransformation.Rotation(-Math.PI / 2);
+            //global.ClusterSettings.Add(subgraph2, local);
+
+            graphViewer.Graph = graph;
             this.ingredientVM = new IngredientViewModel();
             this.DataContext =this.ingredientVM;
         }
