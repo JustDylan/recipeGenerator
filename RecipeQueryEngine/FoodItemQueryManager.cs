@@ -45,5 +45,16 @@ namespace RecipeQueryEngine
             }
             return foodItems;
         }
+
+        public static List<string> ParseIngredients(string input)
+        {
+            string[] ingredientsArray = input.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            List<string> ingredients = new List<string>();
+            foreach (string ingredient in ingredientsArray)
+            {
+                ingredients.Add(ingredient.Trim());
+            }
+            return ingredients;
+        }
     }
 }
