@@ -32,5 +32,10 @@ namespace CougHacksApp.Model
 
             return foodItems;
         }
+
+        public List<string> GetFoodItemsList(string input)
+        {
+            return QueryForFoodItemsAsync(input).Result;
+        }
     }
 }
