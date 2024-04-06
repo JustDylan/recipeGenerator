@@ -9,6 +9,8 @@
         public async Task<List<Recipe>> GetRecipesFromIngredientsAsync(List<string> ingredients)
         {
             var recipes = new List<Recipe>();
+
+            // Our database is stored locally to demonstrate the portability of our code
             var connectionString = "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
 
             // Construct the SQL query dynamically based on the ingredients list
