@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CougHacksApp.View"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Recipe List" Height="500" Width="300" Background="#FF5B5B6C">
     <Border>
     <Grid>
-        <ListBox ItemsSource="{Binding Recipies}" DisplayMemberPath="Name"/>
-    </Grid>
+            <Border  CornerRadius="10" Padding="10" Margin="5">
+            <ListBox  ItemsSource="{Binding Recipies}" Background="#FFF7F7F7" DisplayMemberPath="Name"/>
+            </Border>
+        </Grid>
     </Border>
 
 
