@@ -48,11 +48,7 @@ namespace CougHacksApp
         {
             if (sender != null)
             {
-                List<string> foodItems =
-                    ((System.Collections.ObjectModel.ObservableCollection<string>)sender).ToList();
-                int numMatching = foodItems.Count > 2 ? 2 : 0;
-
-                CreateGraphFromIngredients(foodItems, numMatching);
+                return;
             }
         }
 
@@ -203,7 +199,11 @@ namespace CougHacksApp
 
         private void Gen_Click(object sender, RoutedEventArgs e)
         {
+            List<string> foodItems =
+                    this.ingredientVM.SelectedIngredients.ToList();
+            int numMatching = foodItems.Count > 2 ? 2 : 0;
 
+            CreateGraphFromIngredients(foodItems, numMatching);
         }
     }
 }
