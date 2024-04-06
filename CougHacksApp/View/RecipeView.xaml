@@ -37,7 +37,7 @@
                     <Button x:Name="Print" ToolTip="Print"  Style="{StaticResource MenuIcons}">
                         <Image Source="/Icons/print.png" Stretch="Fill"/>
                     </Button>
-                    <Button x:Name="History" ToolTip="History" Style="{StaticResource MenuIcons}">
+                    <Button x:Name="History" ToolTip="History" Style="{StaticResource MenuIcons}" Click="HistoryBtn_Click">
                         <Image Source="/Icons/clock-rotate-right.png" Stretch="Fill"/>
                     </Button>
                     <Button x:Name="Favorite" ToolTip="Favorite Recipes"  Style="{StaticResource MenuIcons}">

@@ -20,10 +20,12 @@ namespace CougHacksApp.View
     /// </summary>
     public partial class RecipeListView : Window
     {
-        private List<RecipeViewModel> RecipeList;
-        public RecipeListView()
+        public 
+        public RecipeListView(List<RecipeViewModel> recipeList)
         {
             InitializeComponent();
+
+            this.recipeList = recipeList;
         }
     }
 }
