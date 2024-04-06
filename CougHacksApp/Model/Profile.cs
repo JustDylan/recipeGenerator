@@ -81,7 +81,7 @@ namespace CougHacksApp.Model
             using (StreamReader favorites = new StreamReader("favList.txt"))
                 while((importedID = favorites.ReadLine()) != null)
                 {
-                    AddFavorite(foobar.RecipeByID(importedID));
+                    AddFavorite(RecipeQueryManager.RecipeByID(importedID));
                 }
             
 
