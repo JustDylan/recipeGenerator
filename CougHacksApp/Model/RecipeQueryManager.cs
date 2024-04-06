@@ -1,4 +1,4 @@
-﻿namespace RecipeQueryEngine
+﻿namespace CougHacksApp.Model
 {
     using System.Security.AccessControl;
     using System.Security.Policy;

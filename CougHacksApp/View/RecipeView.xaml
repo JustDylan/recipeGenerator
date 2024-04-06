@@ -40,7 +40,7 @@
                     <Button x:Name="History" ToolTip="History" Style="{StaticResource MenuIcons}" Click="HistoryBtn_Click">
                         <Image Source="/Icons/clock-rotate-right.png" Stretch="Fill"/>
                     </Button>
-                    <Button x:Name="Favorite" ToolTip="Favorite Recipes"  Style="{StaticResource MenuIcons}">
+                    <Button x:Name="Favorite" ToolTip="Favorite Recipes"  Style="{StaticResource MenuIcons}" Click="FavoriteBtn_Click">
                         <Image Source="/Icons/heart.png" Stretch="Fill"/>
                     </Button>
                 </StackPanel>

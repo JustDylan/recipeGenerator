@@ -6,13 +6,24 @@
         xmlns:local="clr-namespace:CougHacksApp.View"
         mc:Ignorable="d"
         Title="Recipe List" Height="500" Width="300" Background="#FF5B5B6C">
-    <Border>
+    
     <Grid>
-            <Border  CornerRadius="10" Padding="10" Margin="5">
-            <ListBox  ItemsSource="{Binding Recipies}" Background="#FFF7F7F7" DisplayMemberPath="Name"/>
-            </Border>
-        </Grid>
-    </Border>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Border  CornerRadius="10" Padding="10" Margin="5" Background="#FFF7F7F7">
+            <ListBox  ItemsSource="{Binding Recipes}"  DisplayMemberPath="Name" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Border>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="AddFavBtn" Content="Add to Favorite" Visibility="Collapsed"
+                    Height="40" Width="125" Click="AddFavBtn_Click" Margin="10,0,10,0"/>
+            <Button x:Name="View" Content="View" Height="40" 
+                    Width="125" Click="View_Click" Margin="10,0,10,0"/>
+        </StackPanel>
+    </Grid>
+  
 
 
 

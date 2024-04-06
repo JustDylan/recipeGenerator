@@ -1,4 +1,5 @@
-﻿using CougHacksApp.MVVM;
+﻿using CougHacksApp.Model;
+using CougHacksApp.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace CougHacksApp.ViewModel
     
     public class RecipeViewModel : ViewModelBase
     {
+        public readonly Recipe rec;
         private string name;
 
         public string Name
@@ -90,6 +92,15 @@ namespace CougHacksApp.ViewModel
             }
 
             return stringBuilder.ToString();
+        }
+
+        public RecipeViewModel(Recipe rec)
+        {
+            this.rec = rec;
+            this.Name = rec.Label;
+            this.LinkURL = rec.Url;
+            this.Ingredients = rec.Ingredients;
+            this.RecipeList = this.LoadRecipeText(rec.Ingredients);
         }
 
         public RecipeViewModel()

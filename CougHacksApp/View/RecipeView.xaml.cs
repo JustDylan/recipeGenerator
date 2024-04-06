@@ -1,4 +1,6 @@
-﻿using CougHacksApp.ViewModel;
+﻿using CougHacksApp.Model;
+using CougHacksApp.View;
+using CougHacksApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,16 +23,25 @@ namespace CougHacksApp
     public partial class RecipeView : Window
     {
         private RecipeViewModel recipe;
-        public RecipeView(RecipeViewModel recipe)
+        private Profile profile;
+        public RecipeView(RecipeViewModel recipe, Profile profile)
         {
             InitializeComponent();
             this.recipe = recipe;
             this.DataContext = recipe;
+            this.profile = profile;
         }
 
         public void HistoryBtn_Click(object sender, RoutedEventArgs e)
         {
+            RecipeListView recipeList = new RecipeListView(recipe,profile, false);
+            recipeList.Show();
+        }
 
+        public void FavoriteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            RecipeListView recipeList = new RecipeListView(recipe,profile);
+            recipeList.Show();
         }
 
     }

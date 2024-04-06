@@ -1,18 +1,7 @@
-﻿using CefSharp.DevTools.Profiler;
-using CougHacksApp.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CougHacksApp.ViewModel;
+using CougHacksApp.Model;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace CougHacksApp.View
 {
@@ -22,13 +11,74 @@ namespace CougHacksApp.View
     public partial class RecipeListView : Window
     {
         public Profile profile;
-        public List<RecipeViewModel> recipes;
-        public RecipeListView(List<RecipeViewModel> recipeList)
+        public ObservableCollection<RecipeViewModel> Recipes { get; set; }
+        private RecipeViewModel prevRec;
+
+        private RecipeViewModel selectedItem;
+
+        public RecipeViewModel SelectedItem
+        {
+            get { return selectedItem; }
+            set 
+            { 
+                selectedItem = value;
+            }
+        }
+    
+        public RecipeListView(RecipeViewModel rec,Profile profile, bool isFav = true)
         {
             InitializeComponent();
 
-            this.recipes = recipeList;
+            this.prevRec = rec;
+            this.profile = profile;
 
+            if(isFav) 
+            {
+                this.Title = "Favorite Recipes";
+                AddFavBtn.Visibility = Visibility.Visible; 
+            }
+            else
+            {
+                this.Title = "History";
+            }
+
+            this.Recipes = new ObservableCollection<RecipeViewModel>();
+
+            if(isFav)
+            {
+                foreach (Recipe recipe in this.profile.FavRec)
+                {
+                    RecipeViewModel newRecipe = new RecipeViewModel(recipe);
+                    this.Recipes.Add(newRecipe);
+                }
+            }else
+            {
+                foreach (Recipe recipe in this.profile.HistoryRec)
+                {
+                    RecipeViewModel newRecipe = new RecipeViewModel(recipe);
+                    this.Recipes.Add(newRecipe);
+                }
+            }
+
+            this.DataContext = this;
+            
+
+        }
+
+        private void AddFavBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.profile.AddFavorite(prevRec.rec);
+            this.Recipes.Add(prevRec);
+        }
+
+        private void View_Click(object sender, RoutedEventArgs e)
+        {
+            if(SelectedItem != null) 
+            {
+                RecipeView recipeView = new RecipeView(SelectedItem, profile);
+                recipeView.Show();
+                this.Close();
+            }
         }
     }
 }
