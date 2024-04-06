@@ -9,10 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\clock-rotate-right.png" />
+    <None Remove="Icons\heart.png" />
     <None Remove="Icons\print.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Icons\clock-rotate-right.png" />
+    <Resource Include="Icons\heart.png" />
     <Resource Include="Icons\print.png" />
   </ItemGroup>
 

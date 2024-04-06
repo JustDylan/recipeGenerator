@@ -2,9 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-//using Microsoft.Msagl;
 using Microsoft.Msagl.WpfGraphControl;
-//using LabelPlacement = Microsoft.Msagl.Core.Layout.LabelPlacement;
 using Microsoft.Msagl.Drawing;
 using RecipeQueryEngine;
 
@@ -17,6 +15,7 @@ namespace CougHacksApp
     {
         GraphViewer graphViewer = new GraphViewer();
 
+        
         private IngredientViewModel ingredientVM;
 
         public MainWindow()
@@ -31,7 +30,7 @@ namespace CougHacksApp
             //this.CreateGraph(null, null);
             RecipeViewModel recipeVM = new RecipeViewModel();
             RecipeView recipeView = new RecipeView(recipeVM);
-            recipeView.Show();
+            recipeView.ShowDialog();
         }
 
         public void Graph_Changed(object sender, EventArgs e)
