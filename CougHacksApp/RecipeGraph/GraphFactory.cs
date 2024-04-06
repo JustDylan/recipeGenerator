@@ -51,11 +51,6 @@ namespace CougHacksApp.RecipeGraph
             HashSet<string> formedPairs = new HashSet<string>(); 
 
             List<Node> nodes = new List<Node>();
-            
-            List<Recipe> templist = new List<Recipe>();
-            for (int i = 0; i < recipes.Count && i < 40; i++)
-                templist.Add(recipes[i]);
-            recipes = templist;
 
             recipes.Sort((x, y) => { return x.FoodItems.Count - y.FoodItems.Count; });
 

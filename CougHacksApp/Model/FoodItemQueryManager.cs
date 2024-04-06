@@ -6,13 +6,13 @@ namespace CougHacksApp.Model
     {
         string dbhost = "localhost";
         string dbusername = "postgres";
-        static string dbpassword = "1004";
+        static string dbpassword = "1";
         string db = "recipedatabase";
 
         public async Task<List<string>> QueryForFoodItemsAsync(string input)
         {
             List<string> foodItems = new List<string>();
-            var connectionString = "Host=localhost; Username=postgres; Password=1004; Database=recipedatabase";
+            var connectionString = "Host=localhost; Username=postgres; Password=1; Database=recipedatabase";
             await using var dataSource = NpgsqlDataSource.Create(connectionString);
 
             // SQL query that selects from common_foods only

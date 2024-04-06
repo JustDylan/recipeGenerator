@@ -103,6 +103,7 @@ namespace CougHacksApp
             //local.Transformation = PlaneTransformation.Rotation(-Math.PI / 2);
             //global.ClusterSettings.Add(subgraph2, local);
 
+            
         }
 
         private void CreateGraphFromIngredients(List<string> ingredients, int numMatching)
@@ -204,7 +205,7 @@ namespace CougHacksApp
         {
             List<string> foodItems =
                     this.ingredientVM.SelectedIngredients.ToList();
-            int numMatching = foodItems.Count > 2 ? 2 : 0;
+            int numMatching = foodItems.Count > 2 ? 2 : 1;
 
             CreateGraphFromIngredients(foodItems, numMatching);
         }

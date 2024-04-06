@@ -24,18 +24,19 @@
             queryBuilder.Append("SELECT r.id ");
             queryBuilder.Append("FROM recipes AS r ");
             queryBuilder.Append("INNER JOIN ingredients AS i ON r.id = i.recipe_id ");
-            queryBuilder.Append("WHERE i.fooditem IN ( ");
+            queryBuilder.Append("WHERE LOWER(i.fooditem) LIKE ANY ( ARRAY[");
 
             string selectedFoodItems = string.Empty;
+
             // Append each ingredient to the query
             for (int i = 0; i < ingredients.Count; i++)
             {
-                selectedFoodItems += "'" + ingredients[i] + "'" +
+                selectedFoodItems += "'% " + ingredients[i].ToLower() + "%'," + " '" + ingredients[i].ToLower() + "%'" +
                     ((i < ingredients.Count - 1) ? ", " : string.Empty);
             }
 
             queryBuilder.Append(selectedFoodItems);
-            queryBuilder.Append(") GROUP BY r.id HAVING COUNT(r.id) >= " + minMatchIngredients);
+            queryBuilder.Append("]) GROUP BY r.id HAVING COUNT(r.id) >= " + minMatchIngredients + " LIMIT 40");
 
             // Execute the query
             await using var dataSource = NpgsqlDataSource.Create(connectionString);
