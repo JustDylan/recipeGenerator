@@ -117,7 +117,7 @@ namespace CougHacksApp
             graph.AssignGraph(this.graphViewer);
         }
 
-        private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
+        private async void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             string query = (sender as TextBox).Text;
 
@@ -128,11 +128,13 @@ namespace CougHacksApp
             }
 
             //var filteredSuggestions = this.ingredientVM.AvailableIngredients.Where(s => s.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)).ToList();
-            var filteredSuggestions = foodItemQueryManager.GetFoodItemsList(query);
+            List<string> filteredSuggestions = await foodItemQueryManager.QueryForFoodItemsAsync(query);
 
             if (filteredSuggestions.Any())
             {
-                SuggestionsListBox.ItemsSource = filteredSuggestions;
+                // Limit the number of suggestions to 5
+                var limitedSuggestions = filteredSuggestions.Take(5).ToList();
+                SuggestionsListBox.ItemsSource = limitedSuggestions;
                 SuggestionsPopup.IsOpen = true;
             }
             else
@@ -150,6 +152,7 @@ namespace CougHacksApp
                 SearchTextBox.Text = "Search";
                 this.ingredientVM.AddIngredients(selectedText);
                 SuggestionsPopup.IsOpen = false;
+                SuggestionsListBox.SelectedItem = null;
                 // Optionally, move focus back to the text box
                 //SearchTextBox.Focus();
                 //TODO create graph
