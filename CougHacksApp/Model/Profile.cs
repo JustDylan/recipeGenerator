@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace CougHacksApp.Model
@@ -76,6 +77,14 @@ namespace CougHacksApp.Model
         public void Read()
         {
             //Read from file
+            string importedID;
+            using (StreamReader favorites = new StreamReader("favList.txt"))
+                while((importedID = favorites.ReadLine()) != null)
+                {
+                    AddFavorite(foobar.RecipeByID(importedID));
+                }
+            
+
         }
     }
 }
