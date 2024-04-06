@@ -17,6 +17,7 @@ namespace RecipeQueryEngine
 
         public async Task<List<string>> QueryForFoodItemsAsync(string input)
         {
+            List<string> foodItems = new List<string>();
             var connectionString = "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
             await using var dataSource = NpgsqlDataSource.Create(connectionString);
 

@@ -5,10 +5,6 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CougHacksApp", "CougHacksApp\CougHacksApp.csproj", "{A0DF313A-0D22-4FDD-8DD8-130954E921CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeQueryEngine", "RecipeQueryEngine\RecipeQueryEngine.csproj", "{9090E04B-06B1-442D-BFDB-524A41BCB26D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoRecipeQuery", "DemoRecipeQuery\DemoRecipeQuery.csproj", "{68ADBA89-3153-4D20-816F-D76FA834B1CE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,14 +15,6 @@ Global
 		{A0DF313A-0D22-4FDD-8DD8-130954E921CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0DF313A-0D22-4FDD-8DD8-130954E921CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0DF313A-0D22-4FDD-8DD8-130954E921CE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9090E04B-06B1-442D-BFDB-524A41BCB26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9090E04B-06B1-442D-BFDB-524A41BCB26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9090E04B-06B1-442D-BFDB-524A41BCB26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9090E04B-06B1-442D-BFDB-524A41BCB26D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68ADBA89-3153-4D20-816F-D76FA834B1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68ADBA89-3153-4D20-816F-D76FA834B1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68ADBA89-3153-4D20-816F-D76FA834B1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68ADBA89-3153-4D20-816F-D76FA834B1CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

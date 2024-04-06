@@ -1,4 +1,5 @@
-﻿using CougHacksApp.ViewModel;
+﻿using CefSharp.DevTools.Profiler;
+using CougHacksApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,14 @@ namespace CougHacksApp.View
     /// </summary>
     public partial class RecipeListView : Window
     {
+        public Profile profile;
+        public List<RecipeViewModel> recipes;
         public RecipeListView(List<RecipeViewModel> recipeList)
         {
             InitializeComponent();
 
-            this.recipeList = recipeList;
+            this.recipes = recipeList;
+
         }
     }
 }

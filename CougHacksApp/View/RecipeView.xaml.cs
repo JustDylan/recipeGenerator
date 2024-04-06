@@ -28,7 +28,10 @@ namespace CougHacksApp
             this.DataContext = recipe;
         }
 
+        public void HistoryBtn_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
 
     }
 }
