@@ -14,25 +14,10 @@
             _httpClient = new HttpClient();
         }
 
-        public class Recipe
-        {
-            public string Label { get; set; }
-            public Dictionary<string, double> FoodItems { get; set; } // Food item name -> Count
-            public List<string> Ingredients { get; set; }
-            public string ImageUrl { get; set; }
-
-            public void Display()
-            {
-                Console.WriteLine($"Recipe: {Label}");
-                Console.WriteLine("FoodItems:");
-                foreach (var ingredient in FoodItems)
-                {
-                    Console.WriteLine($"- {ingredient}");
-                }
-                Console.WriteLine();
-            }
-        }
-
+        /// <summary>
+        /// Displays the recipes to the console (for testing).
+        /// </summary>
+        /// <param name="recipes"> The list of recipies to display. </param>
         public void DisplayRecipes(List<Recipe> recipes)
         {
             foreach (var recipe in recipes)
@@ -41,6 +26,12 @@
             }
         }
 
+        /// <summary>
+        /// Uses the Edamam API to search for a list of recipies that use the given list of ingredients.
+        /// </summary>
+        /// <param name="ingredients"> Will be used in the recipies that are returned. </param>
+        /// <param name="requireAllIngredients"> If the list of recipies have to use all the ingredients given or not. </param>
+        /// <returns> A list of recipe instances that used the given ingredients. </returns>
         public async Task<List<Recipe>> SearchRecipesAsync(List<string> ingredients, bool requireAllIngredients)
         {
             using (var httpClient = new HttpClient())
@@ -96,6 +87,11 @@
             }
         }
 
+        /// <summary>
+        /// Creates a list of recipe instances out of the JSON array.
+        /// </summary>
+        /// <param name="recipes"> The recipies to turn into recipe instances. </param>
+        /// <returns> Returns a list of recipe class instances. </returns>
         private List<Recipe> ExtractRecipes(JArray recipes)
         {
             List<Recipe> extractedRecipes = new List<Recipe>();
@@ -106,12 +102,19 @@
                     Label = hit["recipe"]["label"].ToString(),
                     FoodItems = ExtractFoodItems(hit["recipe"]["ingredients"]),
                     Ingredients = ExtractIngredients(hit["recipe"]["ingredients"]),
-                    ImageUrl = hit["recipe"]["image"].ToString()
+                    ImageUrl = hit["recipe"]["image"].ToString(),
+                    Url = hit["recipe"]["url"].ToString()
                 };
                 extractedRecipes.Add(recipe);
             }
             return extractedRecipes;
         }
+
+        /// <summary>
+        /// Extracts the ingredients, i.e. '1/3 cup flour' from the JToken recipe, and turns them into strings.
+        /// </summary>
+        /// <param name="ingredients"> The ingredients attribute of the recipe from the API. </param>
+        /// <returns> Returns strings of the ingredients. </returns>
         private List<String> ExtractIngredients(JToken ingredients)
         {
             List<string> extractedIngredients = new List<string>();
@@ -123,26 +126,18 @@
 
         }
 
-    
-        private Dictionary<string, double> ExtractFoodItems(JToken fooditems)
+        /// <summary>
+        /// Turns the fooditems from the JToken into a dictionary.
+        /// </summary>
+        /// <param name="fooditems"> The fooditems from the JSON recipe. </param>
+        /// <returns> Returns a dictionary of fooditems and their quantity. </returns>
+        private List<string> ExtractFoodItems(JToken fooditems)
         {
-            Dictionary<string, double> extractedIngredients = new Dictionary<string, double>();
+            List<String> extractedIngredients = new List<String>();
             foreach (var fooditem in fooditems)
             {
                 string ingredientName = fooditem["foodCategory"].ToString();
-                double ingredientCount = double.Parse(fooditem["quantity"].ToString()); // Or whatever attribute represents the count
-
-                // Check if the fooditem already exists in the dictionary
-                if (extractedIngredients.ContainsKey(ingredientName))
-                {
-                    // If the fooditem exists, add the count to its existing value
-                    extractedIngredients[ingredientName] += ingredientCount;
-                }
-                else
-                {
-                    // If the fooditem does not exist, add it to the dictionary with its count
-                    extractedIngredients.Add(ingredientName, ingredientCount);
-                }
+                extractedIngredients.Add(ingredientName);
             }
             return extractedIngredients;
         }
