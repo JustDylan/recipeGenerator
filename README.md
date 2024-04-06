@@ -10,14 +10,14 @@ This dynamic analysis could enable flexibility for many of its users; busy profe
 
 # Sources & Attributation
 
-As a disclaimer, we utilized AI to augment our abilities which allowed us to implement this proof of concept in under 24 hours. However, we handdesigned the premise, UML diagram, UI, and this very README. 
+As a disclaimer, we utilized AI to augment our abilities which allowed us to implement most of this proof of concept within a 24 hour deadline. However, we hand-designed the premise, UML diagram, UI, and this README. 
 
-Our print icon and program logo/icon are our own work, but all other icons were retrieved from [Iconoir](https://iconoir.com/).
+Our print icon and program logo/icon are our own work; all other icons were retrieved from [Iconoir](https://iconoir.com/).
 
 We utilized this extensive, [free recipe offline database](https://recipenlg.cs.put.poznan.pl/dataset) as our initial source for recipes.
 
 # Future Roadmap
-There are still features we wish to implement but ran out of time for:
+We ran out of time before our deadline to implement the following features:
 - color coding with respect to number of ingredients
 - properly saving bookmarks to disk
 - implement a more sophisticated recipe filtering (filter out by diet, calories, etc) to allow faster searching
@@ -26,8 +26,7 @@ There are still features we wish to implement but ran out of time for:
 - database editing: allow custom recipes from the user 
 
 # UML Diagram
-We have created a UML diagram as our master outline to guide us through this project: https://github.com/JustDylan/recipeGenerator/blob/main/Classdiagram.mdj
-
-For convieniece, here is a render:
+We have created a UML diagram to act as a master outline through this project: https://github.com/JustDylan/recipeGenerator/blob/main/Classdiagram.mdj
+The UML can also be found as an image:
 
 ![UML Diagram as a jpg image](https://github.com/JustDylan/recipeGenerator/blob/main/ClassDiagram.jpg)
