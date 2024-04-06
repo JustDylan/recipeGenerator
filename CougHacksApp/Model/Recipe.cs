@@ -8,6 +8,7 @@ namespace RecipeQueryEngine
 {
     public class Recipe
     {
+        public int ID { get; set; }
         public string Label { get; set; }
         public HashSet<string> FoodItems { get; set; }
         public List<string> Ingredients { get; set; }

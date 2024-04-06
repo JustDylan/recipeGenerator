@@ -13,20 +13,21 @@
 
             // Construct the SQL query dynamically based on the ingredients list
             var queryBuilder = new StringBuilder();
-            queryBuilder.Append("SELECT r.recipe_name, i.fooditem, r.image_url, r.url ");
-            queryBuilder.Append("FROM recipes r ");
-            queryBuilder.Append("INNER JOIN ingredients i ON r.id = i.recipe_id ");
-            queryBuilder.Append("WHERE i.fooditem IN (");
+            queryBuilder.Append("SELECT r.id, r.title, r.link ");
+            queryBuilder.Append("FROM recipes AS r ");
+            queryBuilder.Append("INNER JOIN ingredients AS i ON r.id = i.recipe_id ");
+            queryBuilder.Append("WHERE i.fooditem IN ( ");
 
+            string selectedFoodItems = string.Empty;
             // Append each ingredient to the query
             for (int i = 0; i < ingredients.Count; i++)
             {
-                queryBuilder.Append($"'{ingredients[i]}'");
-                if (i < ingredients.Count - 1)
-                    queryBuilder.Append(", ");
+                selectedFoodItems += "'" + ingredients[i] + "'" +
+                    ((i < ingredients.Count - 1) ? ", " : string.Empty);
             }
 
-            queryBuilder.Append(")");
+            queryBuilder.Append(selectedFoodItems);
+            queryBuilder.Append(") GROUP BY r.id HAVING COUNT(r.id) >= 2");
 
             // Execute the query
             await using var dataSource = NpgsqlDataSource.Create(connectionString);
@@ -36,28 +37,43 @@
             // Read the results and construct Recipe instances
             while (await reader.ReadAsync())
             {
-                var recipeLabel = reader.GetString(0);
-                var foodItem = reader.GetString(1);
-                var imageUrl = reader.GetString(2);
-                var url = reader.GetString(3);
+                int recipeId = reader.GetInt32(0);
+                var recipeLabel = reader.GetString(1);
+                var url = reader.GetString(2);
 
                 // Check if the recipe already exists in the list
                 var existingRecipe = recipes.FirstOrDefault(r => r.Label == recipeLabel);
                 if (existingRecipe == null)
                 {
-                    // If the recipe doesn't exist, create a new Recipe instance
-                    existingRecipe = new Recipe
+                    // query food items that belong the the recipe
+                    string foodItemQuery =
+                        "SELECT i.fooditem, i.ingredient_name " +
+                        "FROM ingredients as i " +
+                        "WHERE i.recipe_id = " + recipeId;
+
+                    await using var foodItemCommand = dataSource.CreateCommand(foodItemQuery);
+                    await using var foodItemReader = await foodItemCommand.ExecuteReaderAsync();
+
+                    HashSet<string> foodItems = new HashSet<string>();
+                    List<string> ingredientList = new List<string>();
+
+                    while (await foodItemReader.ReadAsync())
                     {
+                        foodItems.Add(foodItemReader.GetString(0));
+                        ingredientList.Add(foodItemReader.GetString(1));
+                    }
+
+                        // If the recipe doesn't exist, create a new Recipe instance
+                        existingRecipe = new Recipe
+                    {
+                        ID = recipeId,
                         Label = recipeLabel,
-                        ImageUrl = imageUrl,
                         Url = url,
-                        FoodItems = new HashSet<string>()
-                    };
+                        FoodItems = foodItems,
+                        Ingredients = ingredientList
+                        };
                     recipes.Add(existingRecipe);
                 }
-
-                // Add food item to the recipe
-                existingRecipe.FoodItems.Add(foodItem);
             }
 
             return recipes;

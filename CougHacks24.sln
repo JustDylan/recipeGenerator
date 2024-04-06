@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CougHacksApp", "CougHacksApp\CougHacksApp.csproj", "{A0DF313A-0D22-4FDD-8DD8-130954E921CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeDemo", "RecipeDemo\RecipeDemo.csproj", "{BB208D88-BF36-4967-A1B9-7BF6FB68A87C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A0DF313A-0D22-4FDD-8DD8-130954E921CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0DF313A-0D22-4FDD-8DD8-130954E921CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0DF313A-0D22-4FDD-8DD8-130954E921CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB208D88-BF36-4967-A1B9-7BF6FB68A87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB208D88-BF36-4967-A1B9-7BF6FB68A87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB208D88-BF36-4967-A1B9-7BF6FB68A87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB208D88-BF36-4967-A1B9-7BF6FB68A87C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
