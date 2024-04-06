@@ -34,13 +34,13 @@
             <Border  Grid.Row="0" Background="#FFF7F7F7" CornerRadius="10" Padding="10" Margin="10">
                 <!--Menu Icons-->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="Print" ToolTip="Print"  Style="{StaticResource MenuIcons}">
+                    <Button x:Name="Print" ToolTip="Print"  Style="{StaticResource MenuIcons}" Click="Print_Click">
                         <Image Source="/Icons/print.png" Stretch="Fill"/>
                     </Button>
                     <Button x:Name="History" ToolTip="History" Style="{StaticResource MenuIcons}" Click="HistoryBtn_Click">
                         <Image Source="/Icons/clock-rotate-right.png" Stretch="Fill"/>
                     </Button>
-                    <Button x:Name="Favorite" ToolTip="Favorite Recipes"  Style="{StaticResource MenuIcons}">
+                    <Button x:Name="Favorite" ToolTip="Favorite Recipes"  Style="{StaticResource MenuIcons}" Click="FavoriteBtn_Click">
                         <Image Source="/Icons/heart.png" Stretch="Fill"/>
                     </Button>
                 </StackPanel>

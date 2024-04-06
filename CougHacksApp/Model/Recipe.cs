@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RecipeQueryEngine
+namespace CougHacksApp.Model
 {
     public class Recipe
     {
         public int ID { get; set; }
         public string Label { get; set; }
-        public List<string> FoodItems { get; set; }
+        public HashSet<string> FoodItems { get; set; }
         public List<string> Ingredients { get; set; }
         public string ImageUrl { get; set; }
         public string Url { get; set; }

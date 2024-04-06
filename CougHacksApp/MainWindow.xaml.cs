@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Msagl.WpfGraphControl;
 using Microsoft.Msagl.Drawing;
-using RecipeQueryEngine;
+using CougHacksApp.Model;
 
 namespace CougHacksApp
 {
@@ -15,6 +15,9 @@ namespace CougHacksApp
     {
         GraphViewer graphViewer = new GraphViewer();
 
+        private FoodItemQueryManager foodItemQueryManager;
+
+        private Profile profile;
         
         private IngredientViewModel ingredientVM;
 
@@ -22,14 +25,18 @@ namespace CougHacksApp
         {
             InitializeComponent();
             graphViewer.BindToPanel(this.RGraphView);
+            foodItemQueryManager = new FoodItemQueryManager();
             //this.CreateGraph(null, null);
             this.Loaded += (a, b) => CreateGraph(null, null);
             //CreateGraph(null, null);
             //this.Show();
             //AutomaticGraphLayoutControl test = new AutomaticGraphLayoutControl();
             //this.CreateGraph(null, null);
+            this.ingredientVM = new IngredientViewModel();
+            this.DataContext = this.ingredientVM;
+            this.profile = new Profile();
             RecipeViewModel recipeVM = new RecipeViewModel();
-            RecipeView recipeView = new RecipeView(recipeVM);
+            RecipeView recipeView = new RecipeView(recipeVM,this.profile);
             recipeView.ShowDialog();
         }
 
@@ -83,8 +90,7 @@ namespace CougHacksApp
             //global.ClusterSettings.Add(subgraph2, local);
 
             graphViewer.Graph = graph;
-            this.ingredientVM = new IngredientViewModel();
-            this.DataContext =this.ingredientVM;
+            
         }
 
         private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -97,7 +103,8 @@ namespace CougHacksApp
                 return;
             }
 
-            var filteredSuggestions = this.ingredientVM.AvailableIngredients.Where(s => s.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            //var filteredSuggestions = this.ingredientVM.AvailableIngredients.Where(s => s.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            var filteredSuggestions = foodItemQueryManager.GetFoodItemsList(query);
 
             if (filteredSuggestions.Any())
             {

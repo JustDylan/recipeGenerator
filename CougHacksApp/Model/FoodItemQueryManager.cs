@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RecipeQueryEngine
+namespace CougHacksApp.Model
 {
     public class FoodItemQueryManager
     {
@@ -31,6 +31,11 @@ namespace RecipeQueryEngine
             }
 
             return foodItems;
+        }
+
+        public List<string> GetFoodItemsList(string input)
+        {
+            return QueryForFoodItemsAsync(input).Result;
         }
     }
 }
