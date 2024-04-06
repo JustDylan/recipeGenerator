@@ -81,7 +81,8 @@ namespace CougHacksApp.Model
             using (StreamReader favorites = new StreamReader("favList.txt"))
                 while((importedID = favorites.ReadLine()) != null)
                 {
-                    AddFavorite(RecipeQueryManager.RecipeByID(importedID));
+                    RecipeQueryManager query = new RecipeQueryManager();
+                    AddFavorite(query.GetRecipeByIdAsync(int.Parse(importedID)).Result);
                 }
             
 
