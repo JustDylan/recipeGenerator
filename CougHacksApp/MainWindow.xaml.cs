@@ -59,8 +59,8 @@ namespace CougHacksApp
             {
                 RecipeViewModel recipeVM = new RecipeViewModel(rec);
                 RecipeView recipeView = new RecipeView(recipeVM, this.profile);
-                recipeView.ShowDialog();
                 this.profile.AddHistory(rec);
+                recipeView.ShowDialog();
             }
 
             
@@ -214,6 +214,12 @@ namespace CougHacksApp
             {
                 this.ingredientVM.AddIngredients(SearchTextBox.Text);
                 this.SearchTextBox.Clear();
+            }
+            else if(e.Key == Key.Down)
+            {
+                SuggestionsPopup.Focus();
+                SuggestionsListBox.Focus();
+                SuggestionsListBox.SelectedItem = SuggestionsListBox.Items[0]; 
             }
         }
 

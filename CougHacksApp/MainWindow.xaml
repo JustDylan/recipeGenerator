@@ -45,7 +45,7 @@
                                PlacementTarget="{Binding ElementName=SearchTextBox}" 
                                StaysOpen="False" IsOpen="False">
                             <ListBox x:Name="SuggestionsListBox" Width="{Binding ActualWidth, ElementName=SearchTextBox}" 
-                                     SelectionChanged="SuggestionsListBox_SelectionChanged"/>
+                                     SelectionChanged="SuggestionsListBox_SelectionChanged" KeyboardNavigation.DirectionalNavigation="Cycle"/>
                         </Popup>
                         
                     </StackPanel>
