@@ -6,6 +6,7 @@ using Microsoft.Msagl.WpfGraphControl;
 using Microsoft.Msagl.Drawing;
 using CougHacksApp.Model;
 using CougHacksApp.RecipeGraph;
+using System.Collections.Specialized;
 
 namespace CougHacksApp
 {
@@ -39,6 +40,20 @@ namespace CougHacksApp
             //RecipeViewModel recipeVM = new RecipeViewModel();
             //RecipeView recipeView = new RecipeView(recipeVM,this.profile);
             //recipeView.ShowDialog();
+
+            this.ingredientVM.SelectedIngredients.CollectionChanged += IngredientVM_SelectedIngredientsChanged;
+        }
+
+        private void IngredientVM_SelectedIngredientsChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (sender != null)
+            {
+                List<string> foodItems =
+                    ((System.Collections.ObjectModel.ObservableCollection<string>)sender).ToList();
+                int numMatching = foodItems.Count > 2 ? 2 : 0;
+
+                CreateGraphFromIngredients(foodItems, numMatching);
+            }
         }
 
         public void Graph_Changed(object sender, EventArgs e)
@@ -47,7 +62,8 @@ namespace CougHacksApp
             {
                 RecipeViewModel recipeVM = new RecipeViewModel(rec);
                 RecipeView recipeView = new RecipeView(recipeVM, this.profile);
-                recipeView.Show();
+                recipeView.ShowDialog();
+                this.profile.AddHistory(rec);
             }
 
             
@@ -55,6 +71,8 @@ namespace CougHacksApp
 
         public void CreateGraph(object sender, ExecutedRoutedEventArgs ex)
         {
+            //this.graphViewer.Graph = new Graph();
+            //CreateGraphFromIngredients(new List<string>(new [] { "apple", "banana", "berry", "coconut" }));
             /*
             Graph graph = new Graph();
             graph.AddEdge("A", "B");
@@ -89,15 +107,18 @@ namespace CougHacksApp
             //local.Transformation = PlaneTransformation.Rotation(-Math.PI / 2);
             //global.ClusterSettings.Add(subgraph2, local);
 
+        }
+
+        private void CreateGraphFromIngredients(List<string> ingredients, int numMatching)
+        {
             RecipeQueryManager recipeGetter = new RecipeQueryManager();
-            List<Recipe> recipes = recipeGetter.GetRecipesFromIngredientsAsync(new List<string> { "apple", "banana", "coconut" }).Result;
+            List<Recipe> recipes = recipeGetter.GetRecipesFromIngredientsAsync(ingredients, numMatching).Result;
 
             GraphViewModel graph = GraphFactory.CreateGraph(recipes);
 
             graph.GraphNodeChanged += Graph_Changed;
 
-            graph.AssignGraph(graphViewer);
-            
+            graph.AssignGraph(this.graphViewer);
         }
 
         private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
@@ -136,6 +157,7 @@ namespace CougHacksApp
                 // Optionally, move focus back to the text box
                 //SearchTextBox.Focus();
                 //TODO create graph
+                
             }
         }
 
@@ -174,7 +196,14 @@ namespace CougHacksApp
             {
                 var ingredientVM = DataContext as IngredientViewModel;
                 ingredientVM.AddIngredients(tag);
+
+
             }
+        }
+
+        private void Gen_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

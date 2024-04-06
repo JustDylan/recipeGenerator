@@ -44,7 +44,6 @@ namespace CougHacksApp.RecipeGraph
             foreach (Node node in graphNodes)
             {
                 node.Attr.VisualsChanged += (o, e) => { this.OnGraphNodeChange(node, e); };
-                //node.Attr.VisualsChanged += this.OnGraphNodeChange;
             }
         }
 
