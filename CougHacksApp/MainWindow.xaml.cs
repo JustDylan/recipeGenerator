@@ -29,7 +29,8 @@ namespace CougHacksApp
             //this.Show();
             //AutomaticGraphLayoutControl test = new AutomaticGraphLayoutControl();
             //this.CreateGraph(null, null);
-
+            this.ingredientVM = new IngredientViewModel();
+            this.DataContext = this.ingredientVM;
             this.profile = new Profile();
             RecipeViewModel recipeVM = new RecipeViewModel();
             RecipeView recipeView = new RecipeView(recipeVM,this.profile);
@@ -86,8 +87,7 @@ namespace CougHacksApp
             //global.ClusterSettings.Add(subgraph2, local);
 
             graphViewer.Graph = graph;
-            this.ingredientVM = new IngredientViewModel();
-            this.DataContext =this.ingredientVM;
+            
         }
 
         private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
