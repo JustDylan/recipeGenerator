@@ -54,6 +54,12 @@ namespace CougHacksApp
             Graph graph = new Graph();
             graph.AddEdge("A", "B");
             graph.AddEdge("B", "A");
+            var e = graph.AddNode("test");
+            graph.AddEdge("test", "A");
+            e.Attr.VisualsChanged += (o, e) => { if (true) { MessageBox.Show(o.ToString()); } };
+            //graphViewer.MouseDown += (o, e) => { MessageBox.Show(o.ToString()); };
+            //graphViewer.ObjectUnderMouseCursor.
+            //graphViewer.ObjectUnderMouseCursorChanged += (o, e) => { MessageBox.Show(o.ToString()); };
             /*
             var e = graph.AddEdge("4", "5");
             e.LabelText = "Some edge label";
