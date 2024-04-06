@@ -10,14 +10,11 @@
     {
         //TODO store database connect as instance member when constructed.
         static readonly string connectionString =
-            "Host=localhost;Username=postgres;Password=1004;Database=recipedatabase";
+            "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
 
         public async Task<List<Recipe>> GetRecipesFromIngredientsAsync(List<string> ingredients, int minMatchIngredients = 2)
         {
             var recipes = new List<Recipe>();
-
-            // Our database is stored locally to demonstrate the portability of our code
-            var connectionString = "Host=localhost;Username=postgres;Password=1004;Database=recipedatabase";
 
             // Construct the SQL query dynamically based on the ingredients list
             var queryBuilder = new StringBuilder();
