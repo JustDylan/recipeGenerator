@@ -9,7 +9,7 @@
     public class RecipeQueryManager
     {
         static readonly string connectionString =
-            "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
+            "Host=localhost;Username=postgres;Password=1004;Database=recipedatabase";
 
         public async Task<List<Recipe>> GetRecipesFromIngredientsAsync(List<string> ingredients)
         {
