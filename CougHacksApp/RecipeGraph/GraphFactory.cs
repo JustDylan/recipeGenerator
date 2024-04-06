@@ -114,10 +114,18 @@ namespace CougHacksApp.RecipeGraph
                                     nodeLevelPrev[j],
                                     nodeLevelNext[k],
                                     connection));*/
-                            if (!formedPairs.Contains(pair))
+                            if (!formedPairs.Contains(pair) && levelPrev[j].Label != levelNext[k].Label)
                             {
                                 formedPairs.Add(pair);
-                                organizedGraph.AddEdge(levelPrev[j].Label, levelNext[k].Label);
+                                //organizedGraph.AddEdge(levelPrev[j].Label, levelNext[k].Label);
+                                ConnectionToGraph connection =
+                                new ConnectionToGraph();
+
+                                organizedGraph.AddPrecalculatedEdge(
+                                    new Edge(
+                                        nodeLevelPrev[j],
+                                        nodeLevelNext[k],
+                                        connection));
                             }
                         }
                     }
@@ -127,7 +135,7 @@ namespace CougHacksApp.RecipeGraph
             List<Node> returnedNodes = new List<Node>();
             for(int i = 0; i < nodeLevels.Length; ++i)
             {
-                returnedNodes.Concat(nodeLevels[i]);
+                returnedNodes = returnedNodes.Concat(nodeLevels[i]).ToList();
             }
 
             return new GraphViewModel(organizedGraph, returnedNodes);

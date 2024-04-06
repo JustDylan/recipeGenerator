@@ -36,20 +36,18 @@ namespace CougHacksApp
             this.ingredientVM = new IngredientViewModel();
             this.DataContext = this.ingredientVM;
             this.profile = new Profile();
-            RecipeViewModel recipeVM = new RecipeViewModel();
-            RecipeView recipeView = new RecipeView(recipeVM,this.profile);
-            recipeView.ShowDialog();
+            //RecipeViewModel recipeVM = new RecipeViewModel();
+            //RecipeView recipeView = new RecipeView(recipeVM,this.profile);
+            //recipeView.ShowDialog();
         }
 
         public void Graph_Changed(object sender, EventArgs e)
         {
             if (sender is Recipe rec)
             {
-                //RecipeViewModel recipeVM = new RecipeViewModel(rec.Label,rec.Ingredients,rec.Url);
-                //RecipeView recipeView = new RecipeView(recipeVM);
-                //RecipeViewModel recipeVM = new RecipeViewModel();
-                //RecipeView recipeView = new RecipeView(recipeVM);
-                //recipeView.Show();
+                RecipeViewModel recipeVM = new RecipeViewModel(rec);
+                RecipeView recipeView = new RecipeView(recipeVM, this.profile);
+                recipeView.Show();
             }
 
             
@@ -96,6 +94,8 @@ namespace CougHacksApp
 
             GraphViewModel graph = GraphFactory.CreateGraph(recipes);
 
+            graph.GraphNodeChanged += Graph_Changed;
+
             graph.AssignGraph(graphViewer);
             
         }
@@ -135,6 +135,7 @@ namespace CougHacksApp
                 SuggestionsPopup.IsOpen = false;
                 // Optionally, move focus back to the text box
                 //SearchTextBox.Focus();
+                //TODO create graph
             }
         }
 

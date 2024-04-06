@@ -27,6 +27,7 @@ using Microsoft.Msagl.Drawing;
 using Microsoft.Msagl.Layout.Layered;
 using static Microsoft.Msagl.Core.Layout.LgNodeInfo;
 using Orientation = System.Windows.Controls.Orientation;
+using CougHacksApp.Model;
 
 namespace CougHacksApp.RecipeGraph
 {
@@ -42,7 +43,8 @@ namespace CougHacksApp.RecipeGraph
             this.graph = graph;
             foreach (Node node in graphNodes)
             {
-                node.Attr.VisualsChanged += (o, e) => { this.OnGraphNodeChange(o, e, node); };
+                node.Attr.VisualsChanged += (o, e) => { this.OnGraphNodeChange(node, e); };
+                //node.Attr.VisualsChanged += this.OnGraphNodeChange;
             }
         }
 
@@ -55,10 +57,11 @@ namespace CougHacksApp.RecipeGraph
             graphViewer.Graph = this.graph;
         }
 
-        private void OnGraphNodeChange(object? o, EventArgs e, Node node)
+        private void OnGraphNodeChange(object? o, EventArgs e)
         {
-            if(this.GraphNodeChanged != null)
-                this.GraphNodeChanged(node.UserData, e);
+            if(this.GraphNodeChanged != null &&
+                o != null && ((Node)o).Attr.LineWidth == 2)
+                this.GraphNodeChanged(((Node)o).UserData, e);
         }
     }
 }

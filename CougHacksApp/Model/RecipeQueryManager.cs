@@ -12,7 +12,7 @@
         static readonly string connectionString =
             "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
 
-        public async Task<List<Recipe>> GetRecipesFromIngredientsAsync(List<string> ingredients)
+        public async Task<List<Recipe>> GetRecipesFromIngredientsAsync(List<string> ingredients, int minMatchIngredients = 2)
         {
             var recipes = new List<Recipe>();
 
@@ -35,7 +35,7 @@
             }
 
             queryBuilder.Append(selectedFoodItems);
-            queryBuilder.Append(") GROUP BY r.id HAVING COUNT(r.id) >= 2");
+            queryBuilder.Append(") GROUP BY r.id HAVING COUNT(r.id) >= " + minMatchIngredients);
 
             // Execute the query
             await using var dataSource = NpgsqlDataSource.Create(connectionString);
