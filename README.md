@@ -1,6 +1,6 @@
 # RecipeGenerator
 
-![Recipe Generator Logo: An abstract, open fridge/cabinet with nodes just outside the door with connections originating from inside the container. The nodes are connected to a common node closer to the right. The upper node is yellow, the lower is green. The right node, being an interpretation of a more complex recipe is red.](https://github.com/JustDylan/recipeGenerator/blob/main/CougHacksApp/Icons/logo512.png)
+![Recipe Generator Logo: An abstract, open fridge/cabinet with nodes just outside the door with connections originating from inside the container. The nodes are connected to a common node closer to the right. The upper node is yellow, the lower is green. The right node, being an interpretation of a more complex recipe is red.](https://github.com/JustDylan/recipeGenerator/blob/main/CougHacksApp/Icons/logo512.png | width=30%)
 
 The Recipe Generator is a tool designed to analyze available recipes given ingredients into its UI. The program dynamically resolves all known recipes from our custom SQL database to a human-readable node graph. The "simplest" recipes are listed in the bottom and the complexity rises with each row of nodes. A connection between a higher and lower level node denotes that the less complex recipe is atleast a partial subset of the former. Clicking on a node brings up a window to quickly examine its respective recipe.
 
