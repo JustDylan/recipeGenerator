@@ -1,17 +1,4 @@
-﻿/*using Microsoft.Msagl.WpfGraphControl;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,17 +10,17 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using Microsoft.Msagl.Core.Geometry.Curves;
 using Microsoft.Msagl.Core.Routing;
-using Microsoft.Msagl;
+//using Microsoft.Msagl;
 using Microsoft.Msagl.WpfGraphControl;
 using Microsoft.Win32;
 using Color = Microsoft.Msagl.Drawing.Color;
 //using LabelPlacement = Microsoft.Msagl.Core.Layout.LabelPlacement;
-
 using ModifierKeys = System.Windows.Input.ModifierKeys;
 using Size = System.Windows.Size;
 using Microsoft.Msagl.Drawing;
 using Microsoft.Msagl.Layout.Layered;
 using static Microsoft.Msagl.Core.Layout.LgNodeInfo;
+using Orientation = System.Windows.Controls.Orientation;
 
 namespace CougHacksApp
 {
@@ -153,7 +140,7 @@ namespace CougHacksApp
             // StackPanel to hold the label and button
             StackPanel tagPanel = new StackPanel
             {
-                Orientation = System.Windows.Controls.Orientation.Horizontal,
+                Orientation = Orientation.Horizontal,
                 Margin = new Thickness(5)
             };
 
