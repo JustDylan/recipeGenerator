@@ -18,15 +18,15 @@ We utilized this extensive, [free recipe offline database](https://recipenlg.cs.
 
 # Future Roadmap
 We ran out of time before our deadline to implement the following features:
-- color coding with respect to number of ingredients
 - properly saving bookmarks to disk
 - implement a more sophisticated recipe filtering (filter out by diet, calories, etc) to allow faster searching
 - exporting the recipe node graph to disk
 - advanced portability with proper proceedure for self-hosting a database (such as an installation wizard for client-side private use)
-- database editing: allow custom recipes from the user 
+- database editing: allow custom recipes from the user
+- enhanced stability
 
 # Architecture
-We utilized C#'s convenience to aid in fast prototyping and python for parsing our database file into a SQL server. C# handles the end-user interractions, querying the SQL server for any recipe it needs. The front-end additionally performs the analysis to build and display a graph of recipies as described in the summary.
+We used C# to develop the core front/middle-end due to an apparent aptitude for fast prototyping. As development progressed, we branched out into including python code for parsing our database file into a SQL server. C# handles the end-user interractions, querying the SQL server for any recipe it needs. The front-end additionally performs the "middle-end" analysis to build and display a graph of recipies as described in the summary.
 
 # UML Diagram
 We have created a [UML diagram](https://github.com/JustDylan/recipeGenerator/blob/main/Classdiagram.mdj) to act as a master outline through this project:
