@@ -6,6 +6,7 @@ using System.Windows.Input;
 using Microsoft.Msagl.WpfGraphControl;
 //using LabelPlacement = Microsoft.Msagl.Core.Layout.LabelPlacement;
 using Microsoft.Msagl.Drawing;
+using RecipeQueryEngine;
 
 namespace CougHacksApp
 {
@@ -20,8 +21,6 @@ namespace CougHacksApp
 
         public MainWindow()
         {
-            
-
             InitializeComponent();
             graphViewer.BindToPanel(this.RGraphView);
             //this.CreateGraph(null, null);
@@ -30,17 +29,23 @@ namespace CougHacksApp
             //this.Show();
             //AutomaticGraphLayoutControl test = new AutomaticGraphLayoutControl();
             //this.CreateGraph(null, null);
+            RecipeViewModel recipeVM = new RecipeViewModel();
+            RecipeView recipeView = new RecipeView(recipeVM);
+            recipeView.Show();
         }
 
         public void Graph_Changed(object sender, EventArgs e)
         {
             if (sender is Recipe rec)
             {
-                RecipeViewModel recipeVM = new RecipeViewModel(rec);
-                RecipeView recipeView = new RecipeView(recipeVM);
-                recipeView.Show();
-
+                //RecipeViewModel recipeVM = new RecipeViewModel(rec.Label,rec.Ingredients,rec.Url);
+                //RecipeView recipeView = new RecipeView(recipeVM);
+                //RecipeViewModel recipeVM = new RecipeViewModel();
+                //RecipeView recipeView = new RecipeView(recipeVM);
+                //recipeView.Show();
             }
+
+            
         }
 
         public void CreateGraph(object sender, ExecutedRoutedEventArgs ex)

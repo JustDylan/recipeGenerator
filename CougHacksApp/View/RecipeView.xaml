@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CougHacksApp"
         xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
-        Title="Recipe" Height="450" Width="800">
+        Title="Recipe" Height="750" Width="1200" Background="#FF5B5B6C">
     <Window.Resources>
         <Style x:Key="MenuIcons" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -17,49 +17,49 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
     </Window.Resources>
-    
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <!--Menu Icons-->
-            <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Button x:Name="OpenFile" Style="{StaticResource MenuIcons}">
-                    <Image Source="/Icons/OpenFile.png" Stretch="Fill"/>
-                </Button>
-                <Button x:Name="Save" Style="{StaticResource MenuIcons}">
-                    <Image Source="/Icons/Save.png" Stretch="Fill"/>
-                </Button>
-                <Button x:Name="SaveAll" Style="{StaticResource MenuIcons}">
-                    <Image Source="/Icons/SaveAll.png" Stretch="Fill"/>
-                </Button>
-                <Button x:Name="Copy" Style="{StaticResource MenuIcons}">
-                    <Image Source="/Icons/Copy.png" Stretch="Fill"/>
-                </Button>
-                <Button x:Name="Cut" Style="{StaticResource MenuIcons}">
-                    <Image Source="/Icons/Cut.png" Stretch="Fill"/>
-                </Button>
-                <Button x:Name="Paste" Style="{StaticResource MenuIcons}">
-                    <Image Source="/Icons/Paste.png" Stretch="Fill"/>
-                </Button>
-                <Button x:Name="Sync" Style="{StaticResource MenuIcons}">
-                    <Image Source="/Icons/VBWorkflowManagerActivity.png" Stretch="Fill"/>
-                </Button>
-                <Button x:Name="Exit" Style="{StaticResource MenuIcons}">
-                    <Image Source="/Icons/exit-2860.png" Stretch="Fill"/>
-                </Button>
-            </StackPanel>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="7*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Recipe" Margin="10"/>
-            
-            <cef:ChromiumWebBrowser x:Name="webBrowser" Grid.Column="1" Address="{Binding LinkURL}"/>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="7*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Menu-->
+            <Border  MinWidth="200"  Grid.Row="0" Background="#FFF7F7F7" CornerRadius="10" Padding="10" Margin="10">
+                <!--Menu Icons-->
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="OpenFile" Style="{StaticResource MenuIcons}">
+                        <Image Source="/Icons/print.png" Stretch="Fill"/>
+                    </Button>
+                    <Button x:Name="Save" Style="{StaticResource MenuIcons}">
+                        <Image Source="/Icons/print.png" Stretch="Fill"/>
+                    </Button>
+                    <Button x:Name="SaveAll" Style="{StaticResource MenuIcons}">
+                        <Image Source="/Icons/print.png" Stretch="Fill"/>
+                    </Button>
+                    <Button x:Name="Copy" Style="{StaticResource MenuIcons}">
+                        <Image Source="/Icons/print.png" Stretch="Fill"/>
+                    </Button>
+                    <Button x:Name="Cut" Style="{StaticResource MenuIcons}">
+                        <Image Source="/Icons/print.png" Stretch="Fill"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Row="1" Background="#FFF7F7F7" CornerRadius="10" Padding="10" Margin="10">
+                <TextBlock Text="{Binding RecipeList}" FontSize="16" TextWrapping="Wrap" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+            </Border>
 
         </Grid>
+
+        <Border Grid.Column="1" Background="#FFF7F7F7" CornerRadius="10" Padding="10" Margin="10">
+            <cef:ChromiumWebBrowser x:Name="webBrowser"  Address="{Binding LinkURL}"/>
+        </Border>
     </Grid>
 </Window>

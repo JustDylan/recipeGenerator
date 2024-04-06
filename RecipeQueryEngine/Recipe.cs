@@ -9,7 +9,7 @@ namespace RecipeQueryEngine
     public class Recipe
     {
         public string Label { get; set; }
-        public List<String> FoodItems { get; set; }
+        public List<string> FoodItems { get; set; }
         public List<string> Ingredients { get; set; }
         public string ImageUrl { get; set; }
         public string Url { get; set; }

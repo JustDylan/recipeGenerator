@@ -9,13 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\print.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\print.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutomaticGraphLayout.WpfGraphControl" Version="1.1.12" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="123.0.60" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Icons\" />
+    <ProjectReference Include="..\RecipeQueryEngine\RecipeQueryEngine.csproj" />
   </ItemGroup>
 
 </Project>
