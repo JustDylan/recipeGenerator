@@ -22,4 +22,9 @@ foreach (Recipe recipe in recipes)
     Console.WriteLine();
 }
 
+Console.WriteLine();
+Console.WriteLine();
+
+Console.WriteLine(recipeGetter.GetRecipeByIdAsync(recipes[2].ID).Result.Label);
+
 Console.ReadLine();

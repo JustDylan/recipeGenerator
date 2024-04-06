@@ -1,19 +1,23 @@
 ﻿namespace RecipeQueryEngine
 {
+    using System.Security.AccessControl;
+    using System.Security.Policy;
     using System.Text;
     using System.Threading.Tasks;
     using Npgsql;
 
     public class RecipeQueryManager
     {
+        static readonly string connectionString =
+            "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
+
         public async Task<List<Recipe>> GetRecipesFromIngredientsAsync(List<string> ingredients)
         {
             var recipes = new List<Recipe>();
-            var connectionString = "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
 
             // Construct the SQL query dynamically based on the ingredients list
             var queryBuilder = new StringBuilder();
-            queryBuilder.Append("SELECT r.id, r.title, r.link ");
+            queryBuilder.Append("SELECT r.id ");
             queryBuilder.Append("FROM recipes AS r ");
             queryBuilder.Append("INNER JOIN ingredients AS i ON r.id = i.recipe_id ");
             queryBuilder.Append("WHERE i.fooditem IN ( ");
@@ -38,45 +42,66 @@
             while (await reader.ReadAsync())
             {
                 int recipeId = reader.GetInt32(0);
-                var recipeLabel = reader.GetString(1);
-                var url = reader.GetString(2);
 
-                // Check if the recipe already exists in the list
-                var existingRecipe = recipes.FirstOrDefault(r => r.Label == recipeLabel);
-                if (existingRecipe == null)
-                {
-                    // query food items that belong the the recipe
-                    string foodItemQuery =
-                        "SELECT i.fooditem, i.ingredient_name " +
-                        "FROM ingredients as i " +
-                        "WHERE i.recipe_id = " + recipeId;
-
-                    await using var foodItemCommand = dataSource.CreateCommand(foodItemQuery);
-                    await using var foodItemReader = await foodItemCommand.ExecuteReaderAsync();
-
-                    HashSet<string> foodItems = new HashSet<string>();
-                    List<string> ingredientList = new List<string>();
-
-                    while (await foodItemReader.ReadAsync())
-                    {
-                        foodItems.Add(foodItemReader.GetString(0));
-                        ingredientList.Add(foodItemReader.GetString(1));
-                    }
-
-                        // If the recipe doesn't exist, create a new Recipe instance
-                        existingRecipe = new Recipe
-                    {
-                        ID = recipeId,
-                        Label = recipeLabel,
-                        Url = url,
-                        FoodItems = foodItems,
-                        Ingredients = ingredientList
-                        };
-                    recipes.Add(existingRecipe);
-                }
+                Recipe recipe = GetRecipeByIdAsync(recipeId, dataSource).Result;
+                recipes.Add(recipe);
             }
 
+            reader.Close();
+
             return recipes;
+        }
+
+        public async Task<Recipe> GetRecipeByIdAsync(int recipeId)
+        {
+            await using var dataSource = NpgsqlDataSource.Create(connectionString);
+            return await this.GetRecipeByIdAsync(recipeId, dataSource);
+        }
+
+        private async Task<Recipe> GetRecipeByIdAsync(int recipeId, NpgsqlDataSource dataSource)
+        {
+            var recipe = new Recipe();
+            recipe.FoodItems = new HashSet<string>();
+            recipe.Ingredients = new List<string>();
+
+            await using var command = dataSource.CreateCommand("SELECT r.title, i.fooditem, r.link FROM recipes AS r INNER JOIN ingredients AS i ON r.id = i.recipe_id WHERE r.id = @RecipeId;");
+            command.Parameters.AddWithValue("RecipeId", recipeId);
+
+            await using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                recipe.ID = recipeId;
+                recipe.Label = reader.GetString(0);
+                recipe.FoodItems.Add(reader.GetString(1));
+                recipe.Url = reader.GetString(2);
+            }
+
+            reader.Close();
+
+            // query food items that belong the the recipe
+            string foodItemQuery =
+                "SELECT i.fooditem, i.ingredient_name " +
+                "FROM ingredients as i " +
+                "WHERE i.recipe_id = " + recipeId;
+
+            command.CommandText = foodItemQuery;
+            await using var foodItemReader = await command.ExecuteReaderAsync();
+
+            HashSet<string> foodItems = new HashSet<string>();
+            List<string> ingredientList = new List<string>();
+
+            while (await foodItemReader.ReadAsync())
+            {
+                foodItems.Add(foodItemReader.GetString(0));
+                ingredientList.Add(foodItemReader.GetString(1));
+            }
+            foodItemReader.Close();
+
+            recipe.FoodItems = foodItems;
+            recipe.Ingredients = ingredientList;
+
+            return recipe;
         }
     }
 }
