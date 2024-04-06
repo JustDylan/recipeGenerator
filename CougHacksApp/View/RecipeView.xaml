@@ -52,7 +52,7 @@
             </Border>
 
             <Border Grid.Row="2" Background="#FFF7F7F7" CornerRadius="10" Padding="10" Margin="10,0,10,10">
-                <Image x:Name="image" Source="\Icons\logo512.png"/> 
+                <Image Source="\Icons\logo512.png" HorizontalAlignment="Center" VerticalAlignment="Center"/> 
 
             </Border>
         </Grid>
