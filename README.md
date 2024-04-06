@@ -26,7 +26,6 @@ We ran out of time before our deadline to implement the following features:
 - database editing: allow custom recipes from the user 
 
 # UML Diagram
-We have created a UML diagram to act as a master outline through this project: https://github.com/JustDylan/recipeGenerator/blob/main/Classdiagram.mdj
-The UML can also be found as an image:
+We have created a [UML diagram](https://github.com/JustDylan/recipeGenerator/blob/main/Classdiagram.mdj) to act as a master outline through this project:
 
-![UML Diagram as a jpg image](https://github.com/JustDylan/recipeGenerator/blob/main/ClassDiagram.jpg)
+![UML Diagram as a jpg image render.](https://github.com/JustDylan/recipeGenerator/blob/main/ClassDiagram.jpg)
