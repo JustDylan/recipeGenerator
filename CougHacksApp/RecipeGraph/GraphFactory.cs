@@ -118,7 +118,7 @@ namespace CougHacksApp.RecipeGraph
                 int count = recipe.FoodItems.Count();
 
                 node.Attr.Color = new Color((byte)(count * 255.0F / largestCount), 0, 0);
-                node.Attr.FillColor = new Color((byte)(((largestCount-count) * 255.0F / largestCount) * 0.5 + 255 * 0.5F), (byte)(((largestCount - count) * 255.0F / largestCount)), (byte)(((largestCount - count) * 255.0F / largestCount) ));
+                node.Attr.FillColor = new Color((byte)(((largestCount-count) * 255.0F / largestCount * 0.5 + 255 * 0.5F)*0.5 + 255 * 0.5F), (byte)(((largestCount - count) * 255.0F / largestCount) * 0.5 + 255 * 0.5F), (byte)(((largestCount - count) * 255.0F / largestCount) * 0.5 + 255 * 0.5F));
             }
 
             return new GraphViewModel(organizedGraph, returnedNodes);
