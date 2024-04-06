@@ -8,7 +8,7 @@ The Recipe Generator is a tool designed to analyze available recipes with given 
 
 This dynamic analysis could enable flexibility for many of its users; busy professionals, families, and college students could utilize the tool to determine the food to cook by their needs (i.e. time, rationing ingredient use, preference, and shopping plans). We designed both the database and a associated pseudo-API to act as a proof of concept. Other services that offer a recipe database charge for excess API calls such as Edamam. Self-hosting and offline access of a recipe database is key towards scalability by distribution.
 
-# Sources & Attributation
+# Sources & Attribution
 
 As a disclaimer, we utilized AI to augment our abilities which allowed us to implement most of this proof of concept within a 24 hour deadline. However, we hand-designed the premise, UML diagram, UI, and this README. 
 
