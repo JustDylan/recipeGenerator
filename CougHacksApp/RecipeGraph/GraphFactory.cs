@@ -34,19 +34,32 @@ namespace CougHacksApp.RecipeGraph
 {
     internal static class GraphFactory
     {
+        // percent limit of nonmatching food items when performing subset compare
+        private static float nonMatchLimit = 0.5F;
+
         private static List<Recipe>[] recipeLevels =
-            new List<Recipe>[4];
+            new List<Recipe>[5];
 
         private static List<Node>[] nodeLevels =
-            new List<Node>[4];
+            new List<Node>[5];
 
-        private static GraphViewModel CreateGraph(List<Recipe> recipes)
+        public static GraphViewModel CreateGraph(List<Recipe> recipes)
         {
             Graph organizedGraph = new Graph();
+            organizedGraph.Attr.LayerDirection = LayerDirection.LR;
+
+            HashSet<string> formedPairs = new HashSet<string>(); 
+
             List<Node> nodes = new List<Node>();
+            
+            List<Recipe> templist = new List<Recipe>();
+            for (int i = 0; i < recipes.Count && i < 40; i++)
+                templist.Add(recipes[i]);
+            recipes = templist;
 
             recipes.Sort((x, y) => { return x.FoodItems.Count - y.FoodItems.Count; });
-            int layerSize = recipes.Count();
+
+            int layerSize = recipes.Count()/recipeLevels.Length;
 
             for (int i = 0; i < recipeLevels.Length; ++i)
             {
@@ -64,6 +77,7 @@ namespace CougHacksApp.RecipeGraph
                         Node recipeNode = new Node(recipe.Label);
                         recipeNode.UserData = recipe;
                         nodeLevel.Add(recipeNode);
+                        organizedGraph.AddNode(recipeNode);
 
                         level.Add(recipe);
                         recipes.RemoveAt(recipes.Count-1);
@@ -84,12 +98,27 @@ namespace CougHacksApp.RecipeGraph
                     {
                         if (IsSubsetOf(levelPrev[j], levelNext[k]))
                         {
-                            ConnectionToGraph connection = new ConnectionToGraph();
+                            string pair = levelPrev[j].Label + levelNext[k].Label;
+                            /*
+                            bool containsMatchingEdge = false;
+                            foreach (Edge outEdge in nodeLevelNext[k].OutEdges)
+                            {
+                                if (nodeLevelNext[k].InEdges.Contains(outEdge))
+                                    containsMatchingEdge = true;
+                            }*/
+                            /*ConnectionToGraph connection =
+                                new ConnectionToGraph();
+
                             organizedGraph.AddPrecalculatedEdge(
                                 new Edge(
                                     nodeLevelPrev[j],
                                     nodeLevelNext[k],
-                                    connection));
+                                    connection));*/
+                            if (!formedPairs.Contains(pair))
+                            {
+                                formedPairs.Add(pair);
+                                organizedGraph.AddEdge(levelPrev[j].Label, levelNext[k].Label);
+                            }
                         }
                     }
                 }
@@ -110,9 +139,14 @@ namespace CougHacksApp.RecipeGraph
         /// <returns></returns>
         private static bool IsSubsetOf(Recipe supersetRecipe, Recipe subsetRecipe)
         {
-            foreach(string fooditem in supersetRecipe.FoodItems)
+            //return false;
+            // number of unmatched food items.
+            int unMatched = 0;
+
+            foreach(string fooditem in subsetRecipe.FoodItems)
             {
-                if(subsetRecipe.FoodItems.Contains(fooditem))
+                if(!supersetRecipe.FoodItems.Contains(fooditem) &&
+                    ((float)++unMatched)/subsetRecipe.FoodItems.Count() > nonMatchLimit)
                 {
                     return false;
                 }

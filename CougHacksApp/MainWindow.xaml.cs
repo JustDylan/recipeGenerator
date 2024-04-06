@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Microsoft.Msagl.WpfGraphControl;
 using Microsoft.Msagl.Drawing;
 using CougHacksApp.Model;
+using CougHacksApp.RecipeGraph;
 
 namespace CougHacksApp
 {
@@ -53,7 +54,7 @@ namespace CougHacksApp
 
         public void CreateGraph(object sender, ExecutedRoutedEventArgs ex)
         {
-            
+            /*
             Graph graph = new Graph();
             graph.AddEdge("A", "B");
             graph.AddEdge("B", "A");
@@ -62,6 +63,7 @@ namespace CougHacksApp
             graph.AddEdge("test", "A");
             
             e.Attr.VisualsChanged += (o, e) => { if (((NodeAttr)o).LineWidth == 2) { MessageBox.Show(o.ToString() + "   " + ((NodeAttr)o).Styles.GetType().ToString()); } };
+            */
             //graphViewer.MouseDown += (o, e) => { MessageBox.Show(o.ToString()); };
             //graphViewer.ObjectUnderMouseCursor.
             //graphViewer.ObjectUnderMouseCursorChanged += (o, e) => { MessageBox.Show(o.ToString()); };
@@ -86,7 +88,12 @@ namespace CougHacksApp
             //local.Transformation = PlaneTransformation.Rotation(-Math.PI / 2);
             //global.ClusterSettings.Add(subgraph2, local);
 
-            graphViewer.Graph = graph;
+            RecipeQueryManager recipeGetter = new RecipeQueryManager();
+            List<Recipe> recipes = recipeGetter.GetRecipesFromIngredientsAsync(new List<string> { "apple", "banana", "coconut" }).Result;
+
+            GraphViewModel graph = GraphFactory.CreateGraph(recipes);
+
+            graph.AssignGraph(graphViewer);
             
         }
 

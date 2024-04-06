@@ -8,6 +8,7 @@
 
     public class RecipeQueryManager
     {
+        //TODO store database connect as instance member when constructed.
         static readonly string connectionString =
             "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
 
@@ -36,10 +37,10 @@
             // Execute the query
             await using var dataSource = NpgsqlDataSource.Create(connectionString);
             await using var command = dataSource.CreateCommand(queryBuilder.ToString());
-            await using var reader = await command.ExecuteReaderAsync();
+            await using var reader = command.ExecuteReaderAsync().Result;
 
             // Read the results and construct Recipe instances
-            while (await reader.ReadAsync())
+            while (reader.ReadAsync().Result)
             {
                 int recipeId = reader.GetInt32(0);
 
@@ -55,7 +56,7 @@
         public async Task<Recipe> GetRecipeByIdAsync(int recipeId)
         {
             await using var dataSource = NpgsqlDataSource.Create(connectionString);
-            return await this.GetRecipeByIdAsync(recipeId, dataSource);
+            return this.GetRecipeByIdAsync(recipeId, dataSource).Result;
         }
 
         private async Task<Recipe> GetRecipeByIdAsync(int recipeId, NpgsqlDataSource dataSource)
@@ -67,9 +68,9 @@
             await using var command = dataSource.CreateCommand("SELECT r.title, i.fooditem, r.link FROM recipes AS r INNER JOIN ingredients AS i ON r.id = i.recipe_id WHERE r.id = @RecipeId;");
             command.Parameters.AddWithValue("RecipeId", recipeId);
 
-            await using var reader = await command.ExecuteReaderAsync();
+            await using var reader = command.ExecuteReaderAsync().Result;
 
-            while (await reader.ReadAsync())
+            while (reader.ReadAsync().Result)
             {
                 recipe.ID = recipeId;
                 recipe.Label = reader.GetString(0);
@@ -86,12 +87,12 @@
                 "WHERE i.recipe_id = " + recipeId;
 
             command.CommandText = foodItemQuery;
-            await using var foodItemReader = await command.ExecuteReaderAsync();
+            await using var foodItemReader = command.ExecuteReaderAsync().Result;
 
             HashSet<string> foodItems = new HashSet<string>();
             List<string> ingredientList = new List<string>();
 
-            while (await foodItemReader.ReadAsync())
+            while (foodItemReader.ReadAsync().Result)
             {
                 foodItems.Add(foodItemReader.GetString(0));
                 ingredientList.Add(foodItemReader.GetString(1));
