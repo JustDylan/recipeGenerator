@@ -102,8 +102,6 @@ namespace CougHacksApp
             //var local = (SugiyamaLayoutSettings)global.Clone();
             //local.Transformation = PlaneTransformation.Rotation(-Math.PI / 2);
             //global.ClusterSettings.Add(subgraph2, local);
-
-            
         }
 
         private void CreateGraphFromIngredients(List<string> ingredients, int numMatching)
