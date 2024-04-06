@@ -1,5 +1,4 @@
-﻿using CefSharp.DevTools.Database;
-using CougHacksApp.MVVM;
+﻿using CougHacksApp.MVVM;
 using System.Collections.ObjectModel;
 
 namespace CougHacksApp.ViewModel
@@ -31,9 +30,11 @@ namespace CougHacksApp.ViewModel
         private void LoadDemo()
         {
             List<string> Ingredients = new List<string>() { "garlic", "onion","gluten-free soy sauce",
-                                                            "chilly powder", "soy sauce", "honey","sunflower oil",
+                                                            "chilly powder", "soy sauce", "honey",
+                                                            "sunflower oil",
                                                             "black peppercorns","sugar", "Apple",
-                                                            "Apricot", "Banana", "Orange", "Mango", "Pear", "Peach", "Grape", "Plum"};
+                                                            "Apricot", "Banana", "Orange", 
+                                                            "Mango", "Pear", "Peach", "Grape", "Plum"};
             foreach(string item in Ingredients) 
             {
                 this.CommonIngredients.Add(item);
