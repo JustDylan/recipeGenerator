@@ -51,7 +51,7 @@
                         Label = recipeLabel,
                         ImageUrl = imageUrl,
                         Url = url,
-                        FoodItems = new List<string>()
+                        FoodItems = new HashSet<string>()
                     };
                     recipes.Add(existingRecipe);
                 }
