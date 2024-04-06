@@ -74,15 +74,34 @@ namespace CougHacksApp.ViewModel
             this.Name = name;
             this.linkURL = linkURL;
             this.ingredients = ingredients;
+            this.RecipeList=this.LoadRecipeText(this.ingredients);
+        }
 
+        private string LoadRecipeText(List<string> ingredients)
+        {
             StringBuilder stringBuilder = new StringBuilder();
 
             stringBuilder.Append($"{this.Name} recipe:");
             stringBuilder.AppendLine();
-            foreach(string ingredient in ingredients)
+            foreach (string ingredient in ingredients)
             {
                 stringBuilder.Append($"- {ingredient}");
+                stringBuilder.AppendLine();
             }
+
+            return stringBuilder.ToString();
         }
+
+        public RecipeViewModel()
+        {
+            this.Name = "No-Bake Nut Cookies";
+            this.linkURL = "www.cookbooks.com/Recipe-Details.aspx?id=44874";
+
+            this.Ingredients = new List<string>();
+            this.Ingredients.Add("1 c. firmly packed brown sugar");
+            this.Ingredients.Add("1/2 c. evaporated milk");
+            this.RecipeList = this.LoadRecipeText(this.Ingredients);
+        }
+
     }
 }

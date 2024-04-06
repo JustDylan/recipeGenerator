@@ -1,0 +1,19 @@
+﻿<Window x:Class="CougHacksApp.View.RecipeListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CougHacksApp.View"
+        mc:Ignorable="d"
+        Title="Recipe List" Height="500" Width="300" Background="#FF5B5B6C">
+    <Border>
+    <Grid>
+            <Border  CornerRadius="10" Padding="10" Margin="5">
+            <ListBox  ItemsSource="{Binding Recipies}" Background="#FFF7F7F7" DisplayMemberPath="Name"/>
+            </Border>
+        </Grid>
+    </Border>
+
+
+
+</Window>

@@ -9,17 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\clock-rotate-right.png" />
+    <None Remove="Icons\heart.png" />
+    <None Remove="Icons\print.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\clock-rotate-right.png" />
+    <Resource Include="Icons\heart.png" />
+    <Resource Include="Icons\print.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutomaticGraphLayout.WpfGraphControl" Version="1.1.12" />
     <PackageReference Include="CefSharp.Wpf.NETCore" Version="123.0.60" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Icons\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\RecipeQueryEngine\RecipeQueryEngine.csproj" />
+    <PackageReference Include="Npgsql" Version="8.0.2" />
   </ItemGroup>
 
 </Project>

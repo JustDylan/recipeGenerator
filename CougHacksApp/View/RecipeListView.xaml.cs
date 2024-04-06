@@ -1,4 +1,5 @@
-﻿using CougHacksApp.ViewModel;
+﻿using CefSharp.DevTools.Profiler;
+using CougHacksApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,25 +14,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace CougHacksApp
+namespace CougHacksApp.View
 {
     /// <summary>
-    /// Interaction logic for RecipeView.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class RecipeView : Window
+    public partial class RecipeListView : Window
     {
-        private RecipeViewModel recipe;
-        public RecipeView(RecipeViewModel recipe)
+        public Profile profile;
+        public List<RecipeViewModel> recipes;
+        public RecipeListView(List<RecipeViewModel> recipeList)
         {
             InitializeComponent();
-            this.recipe = recipe;
-            this.DataContext = recipe;
-        }
 
-        public void HistoryBtn_Click(object sender, RoutedEventArgs e)
-        {
+            this.recipes = recipeList;
 
         }
-
     }
 }
