@@ -1,8 +1,10 @@
 ﻿using CougHacksApp.Model;
 using CougHacksApp.View;
 using CougHacksApp.ViewModel;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,5 +46,17 @@ namespace CougHacksApp
             recipeList.Show();
         }
 
+        private void Print_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog fileDialog = new SaveFileDialog();
+            fileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
+            if (fileDialog.ShowDialog() == true)
+            {
+                using (StreamWriter streamWriter = new StreamWriter(fileDialog.FileName))
+                {
+                    streamWriter.Write(this.recipe.RecipeList);
+                }
+            }
+        }
     }
 }

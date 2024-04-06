@@ -16,6 +16,8 @@ namespace CougHacksApp
     {
         GraphViewer graphViewer = new GraphViewer();
 
+        private FoodItemQueryManager foodItemQueryManager;
+
         private Profile profile;
         
         private IngredientViewModel ingredientVM;
@@ -24,6 +26,7 @@ namespace CougHacksApp
         {
             InitializeComponent();
             graphViewer.BindToPanel(this.RGraphView);
+            foodItemQueryManager = new FoodItemQueryManager();
             //this.CreateGraph(null, null);
             this.Loaded += (a, b) => CreateGraph(null, null);
             //CreateGraph(null, null);
@@ -107,7 +110,8 @@ namespace CougHacksApp
                 return;
             }
 
-            var filteredSuggestions = this.ingredientVM.AvailableIngredients.Where(s => s.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            //var filteredSuggestions = this.ingredientVM.AvailableIngredients.Where(s => s.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            var filteredSuggestions = foodItemQueryManager.GetFoodItemsList(query);
 
             if (filteredSuggestions.Any())
             {
