@@ -20,14 +20,14 @@
                     <RowDefinition Height="6*"/>
                     <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
-                
+
                 <!--User textBox-->
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="90"/>
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <StackPanel Grid.Row="0" VerticalAlignment="Stretch" Margin="10,10,10,5">
                         <!--Text header-->
                         <TextBlock Text="Ingredients" FontSize="25" 
@@ -46,7 +46,7 @@
                                      SelectionChanged="SuggestionsListBox_SelectionChanged"/>
                         </Popup>
                     </StackPanel>
-                    
+
                     <!--Selected Ingredient-->
                     <GroupBox Grid.Row="1" Header="Selected Ingredient" Margin="10,5,10,5">
                         <ScrollViewer Margin="5">
@@ -59,8 +59,8 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal" Margin="5">
-                                            <Label Content="{Binding}" Margin="2"/>
-                                            <Button Content="X" Margin="2" Padding="2" VerticalAlignment="Center" FontSize="10"
+                                            <Label Content="{Binding}" Margin="2" FontSize="16"/>
+                                            <Button Content="X" Margin="2" Padding="2" VerticalAlignment="Center" FontSize="12"
                                                     Click="TagButton_Click"/>
                                         </StackPanel>
                                     </DataTemplate>
@@ -68,20 +68,34 @@
                             </ItemsControl>
                         </ScrollViewer>
                     </GroupBox>
-                    
+
 
                 </Grid>
-                
+
                 <!--Suggestion box-->
                 <Grid Grid.Row="1">
                     <GroupBox Header="Common Ingredient" Margin="10,5,10,5">
-                        
+                        <ScrollViewer Margin="5">
+                            <ItemsControl ItemsSource="{Binding CommonIngredients}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <Button Content="{Binding}" Margin="2" Padding="2" VerticalAlignment="Center" FontSize="16"
+                                                    BorderThickness="0"
+                                                    Click="CommonIngredientBtn_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </GroupBox>
                 </Grid>
-
             </Grid>
-            
-            
         </Grid>    
     </Grid>
 </Window>

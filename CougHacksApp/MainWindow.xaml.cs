@@ -19,11 +19,6 @@ namespace CougHacksApp
             this.DataContext =this.ingredientVM;
         }
 
-        private List<string> _suggestions = new List<string>
-        {
-            "Apple","Apricot", "Banana", "Orange", "Mango", "Pear", "Peach", "Grape", "Plum"
-        };
-
         private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             string query = (sender as TextBox).Text;
@@ -34,7 +29,7 @@ namespace CougHacksApp
                 return;
             }
 
-            var filteredSuggestions = _suggestions.Where(s => s.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            var filteredSuggestions = this.ingredientVM.AvailableIngredients.Where(s => s.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
             if (filteredSuggestions.Any())
             {
@@ -86,6 +81,16 @@ namespace CougHacksApp
             {
                 var ingredientVM = DataContext as IngredientViewModel;
                 ingredientVM.SelectedIngredients.Remove(tag);
+            }
+        }
+
+        private void CommonIngredientBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null && button.DataContext is string tag)
+            {
+                var ingredientVM = DataContext as IngredientViewModel;
+                ingredientVM.AddIngredients(tag);
             }
         }
     }
