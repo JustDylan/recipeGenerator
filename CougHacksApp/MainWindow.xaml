@@ -13,20 +13,20 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="7*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!--Left portiton for ingredients interface-->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="7*"/>
                 </Grid.RowDefinitions>
-                
+
                 <!--User textBox-->
                 <Grid Grid.Row="0">
                     <StackPanel VerticalAlignment="Stretch">
                         <!--Text header-->
                         <TextBlock Text="Ingredients" FontSize="25" HorizontalAlignment="Center"/>
-                        
+
                         <!--Search Box-->
                         <TextBox x:Name="SearchTextBox" Text="Search" Height="25" 
                                  VerticalAlignment="Top" KeyUp="SearchTextBox_KeyUp"
@@ -37,10 +37,10 @@
                             <ListBox x:Name="SuggestionsListBox" Width="{Binding ActualWidth, ElementName=SearchTextBox}" 
                                      SelectionChanged="SuggestionsListBox_SelectionChanged"/>
                         </Popup>
-                        
-                        
-                        
-                        
+
+
+
+
                     </StackPanel>
                     <!--Selected Ingredient-->
                     <WrapPanel x:Name="TagsPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,30,0,0"/>
@@ -48,12 +48,12 @@
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    
+
                 </Grid>
 
             </Grid>
-            
-            
-        </Grid>    
+            <DockPanel x:Name="RGraphView" Grid.Column="1"/>
+        </Grid>
+
     </Grid>
 </Window>
