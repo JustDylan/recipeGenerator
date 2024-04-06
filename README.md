@@ -10,7 +10,7 @@ This dynamic analysis could enable flexibility for many of its users; busy profe
 
 # Sources & Attributation
 
-As a disclaimer, we utilized AI to augment our abilities. However, we handdesigned the premise, UML diagram, UI, and this very README. 
+As a disclaimer, we utilized AI to augment our abilities which allowed us to implement this proof of concept in under 24 hours. However, we handdesigned the premise, UML diagram, UI, and this very README. 
 
 Our print icon and program logo/icon are our own work, but all other icons were retrieved from [Iconoir](https://iconoir.com/).
 
