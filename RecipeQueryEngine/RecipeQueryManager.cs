@@ -1,145 +1,68 @@
 ﻿namespace RecipeQueryEngine
 {
     using System.Net.Http;
+    using System.Text;
     using System.Threading.Tasks;
     using Newtonsoft.Json.Linq;
+    using Npgsql;
+
     public class RecipeQueryManager
     {
-        private const string AppId = "16d65f0a";
-        private const string AppKey = "6ed317d144816d26818653de32091b04";
-        private HttpClient _httpClient;
-
-        public RecipeQueryManager()
+        public async Task<List<Recipe>> GetRecipesFromIngredientsAsync(List<string> ingredients)
         {
-            _httpClient = new HttpClient();
-        }
+            var recipes = new List<Recipe>();
+            var connectionString = "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
 
-        /// <summary>
-        /// Displays the recipes to the console (for testing).
-        /// </summary>
-        /// <param name="recipes"> The list of recipies to display. </param>
-        public void DisplayRecipes(List<Recipe> recipes)
-        {
-            foreach (var recipe in recipes)
+            // Construct the SQL query dynamically based on the ingredients list
+            var queryBuilder = new StringBuilder();
+            queryBuilder.Append("SELECT r.recipe_name, i.fooditem, r.image_url, r.url ");
+            queryBuilder.Append("FROM recipes r ");
+            queryBuilder.Append("INNER JOIN ingredients i ON r.id = i.recipe_id ");
+            queryBuilder.Append("WHERE i.fooditem IN (");
+
+            // Append each ingredient to the query
+            for (int i = 0; i < ingredients.Count; i++)
             {
-                recipe.Display();
+                queryBuilder.Append($"'{ingredients[i]}'");
+                if (i < ingredients.Count - 1)
+                    queryBuilder.Append(", ");
             }
-        }
 
-        /// <summary>
-        /// Uses the Edamam API to search for a list of recipies that use the given list of ingredients.
-        /// </summary>
-        /// <param name="ingredients"> Will be used in the recipies that are returned. </param>
-        /// <param name="requireAllIngredients"> If the list of recipies have to use all the ingredients given or not. </param>
-        /// <returns> A list of recipe instances that used the given ingredients. </returns>
-        public async Task<List<Recipe>> SearchRecipesAsync(List<string> ingredients, bool requireAllIngredients)
-        {
-            using (var httpClient = new HttpClient())
+            queryBuilder.Append(")");
+
+            // Execute the query
+            await using var dataSource = NpgsqlDataSource.Create(connectionString);
+            await using var command = dataSource.CreateCommand(queryBuilder.ToString());
+            await using var reader = await command.ExecuteReaderAsync();
+
+            // Read the results and construct Recipe instances
+            while (await reader.ReadAsync())
             {
-                string url = "https://api.edamam.com/search?";
-                JArray hits;
+                var recipeLabel = reader.GetString(0);
+                var foodItem = reader.GetString(1);
+                var imageUrl = reader.GetString(2);
+                var url = reader.GetString(3);
 
-                if (requireAllIngredients)
+                // Check if the recipe already exists in the list
+                var existingRecipe = recipes.FirstOrDefault(r => r.Label == recipeLabel);
+                if (existingRecipe == null)
                 {
-                    url += $"q={string.Join(",", ingredients)}";
-                }
-                else
-                {
-                    List<JToken> allHits = new List<JToken>();
-
-                    foreach (string ingredient in ingredients)
+                    // If the recipe doesn't exist, create a new Recipe instance
+                    existingRecipe = new Recipe
                     {
-                        string queryUrl = $"q={ingredient}&app_id={AppId}&app_key={AppKey}";
-                        HttpResponseMessage response = await httpClient.GetAsync($"{url}{queryUrl}");
-                        response.EnsureSuccessStatusCode(); // Throw an exception if the request fails
-
-                        string responseBody = await response.Content.ReadAsStringAsync();
-                        JObject json = JObject.Parse(responseBody);
-                        hits = (JArray)json["hits"];
-                        allHits.AddRange(hits);
-                    }
-
-                    // Remove duplicates from the combined results
-                    HashSet<string> uniqueRecipeLabels = new HashSet<string>();
-                    JArray combinedHits = new JArray();
-                    foreach (var hit in allHits)
-                    {
-                        string recipeLabel = hit["recipe"]["label"].ToString();
-                        if (!uniqueRecipeLabels.Contains(recipeLabel))
-                        {
-                            uniqueRecipeLabels.Add(recipeLabel);
-                            combinedHits.Add(hit);
-                        }
-                    }
-
-                    return ExtractRecipes(combinedHits);
+                        Label = recipeLabel,
+                        ImageUrl = imageUrl,
+                        Url = url,
+                        FoodItems = new List<string>()
+                    };
+                    recipes.Add(existingRecipe);
                 }
 
-                url += $"&app_id={AppId}&app_key={AppKey}";
-
-                HttpResponseMessage mainResponse = await httpClient.GetAsync(url);
-                mainResponse.EnsureSuccessStatusCode(); // Throw an exception if the request fails
-
-                string mainResponseBody = await mainResponse.Content.ReadAsStringAsync();
-                JObject mainJson = JObject.Parse(mainResponseBody);
-                hits = (JArray)mainJson["hits"];
-                return ExtractRecipes(hits);
+                // Add food item to the recipe
+                existingRecipe.FoodItems.Add(foodItem);
             }
-        }
 
-        /// <summary>
-        /// Creates a list of recipe instances out of the JSON array.
-        /// </summary>
-        /// <param name="recipes"> The recipies to turn into recipe instances. </param>
-        /// <returns> Returns a list of recipe class instances. </returns>
-        private List<Recipe> ExtractRecipes(JArray recipes)
-        {
-            List<Recipe> extractedRecipes = new List<Recipe>();
-            foreach (var hit in recipes)
-            {
-                Recipe recipe = new Recipe
-                {
-                    Label = hit["recipe"]["label"].ToString(),
-                    FoodItems = ExtractFoodItems(hit["recipe"]["ingredients"]),
-                    Ingredients = ExtractIngredients(hit["recipe"]["ingredients"]),
-                    ImageUrl = hit["recipe"]["image"].ToString(),
-                    Url = hit["recipe"]["url"].ToString()
-                };
-                extractedRecipes.Add(recipe);
-            }
-            return extractedRecipes;
-        }
-
-        /// <summary>
-        /// Extracts the ingredients, i.e. '1/3 cup flour' from the JToken recipe, and turns them into strings.
-        /// </summary>
-        /// <param name="ingredients"> The ingredients attribute of the recipe from the API. </param>
-        /// <returns> Returns strings of the ingredients. </returns>
-        private List<String> ExtractIngredients(JToken ingredients)
-        {
-            List<string> extractedIngredients = new List<string>();
-            foreach (var ingredient in ingredients)
-            {
-                extractedIngredients.Add(ingredient["text"].ToString());
-            }
-            return extractedIngredients;
-
-        }
-
-        /// <summary>
-        /// Turns the fooditems from the JToken into a dictionary.
-        /// </summary>
-        /// <param name="fooditems"> The fooditems from the JSON recipe. </param>
-        /// <returns> Returns a dictionary of fooditems and their quantity. </returns>
-        private List<string> ExtractFoodItems(JToken fooditems)
-        {
-            List<String> extractedIngredients = new List<String>();
-            foreach (var fooditem in fooditems)
-            {
-                string ingredientName = fooditem["foodCategory"].ToString();
-                extractedIngredients.Add(ingredientName);
-            }
-            return extractedIngredients;
+            return recipes;
         }
     }
 }
