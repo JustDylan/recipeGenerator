@@ -6,29 +6,37 @@
         xmlns:local="clr-namespace:CougHacksApp"
         xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
-        Title="Recipe Finder" Height="450" Width="800">
+        Title="Recipe Finder" Height="600" Width="800">
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
             
             <!--Left portiton for ingredients interface-->
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
-                
+
                 <!--User textBox-->
                 <Grid Grid.Row="0">
-                    <StackPanel VerticalAlignment="Stretch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height="7*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" VerticalAlignment="Stretch" Margin="10,10,10,5">
                         <!--Text header-->
-                        <TextBlock Text="Ingredients" FontSize="25" HorizontalAlignment="Center"/>
-                        
+                        <TextBlock Text="Ingredients" FontSize="25" 
+                                   Margin="0"
+                                   HorizontalAlignment="Center"/>
+
                         <!--Search Box-->
-                        <TextBox x:Name="SearchTextBox" Text="Search" Height="25" 
+                        <TextBox x:Name="SearchTextBox" Text="Search" Height="25"
+                                 Margin="0,10,0,10"
                                  VerticalAlignment="Top" KeyUp="SearchTextBox_KeyUp"
                                  GotFocus="SearchTextBox_GotFocus" LostFocus="SearchTextBox_LostFocus"/>
                         <Popup x:Name="SuggestionsPopup" Placement="Bottom" 
@@ -37,23 +45,57 @@
                             <ListBox x:Name="SuggestionsListBox" Width="{Binding ActualWidth, ElementName=SearchTextBox}" 
                                      SelectionChanged="SuggestionsListBox_SelectionChanged"/>
                         </Popup>
-                        
-                        
-                        
-                        
                     </StackPanel>
+
                     <!--Selected Ingredient-->
-                    <WrapPanel x:Name="TagsPanel" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,30,0,0"/>
+                    <GroupBox Grid.Row="1" Header="Selected Ingredient" Margin="10,5,10,5">
+                        <ScrollViewer Margin="5">
+                            <ItemsControl ItemsSource="{Binding SelectedIngredients}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <Label Content="{Binding}" Margin="2" FontSize="16"/>
+                                            <Button Content="X" Margin="2" Padding="2" VerticalAlignment="Center" FontSize="12"
+                                                    Click="TagButton_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </GroupBox>
+
 
                 </Grid>
 
+                <!--Suggestion box-->
                 <Grid Grid.Row="1">
-                    
+                    <GroupBox Header="Common Ingredient" Margin="10,5,10,5">
+                        <ScrollViewer Margin="5">
+                            <ItemsControl ItemsSource="{Binding CommonIngredients}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <Button Content="{Binding}" Margin="2" Padding="2" VerticalAlignment="Center" FontSize="16"
+                                                    BorderThickness="0"
+                                                    Click="CommonIngredientBtn_Click"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </GroupBox>
                 </Grid>
-
             </Grid>
-            
-            
         </Grid>    
     </Grid>
 </Window>
