@@ -31,4 +31,8 @@
     <ProjectReference Include="..\RecipeQueryEngine\RecipeQueryEngine.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RecipeQueryEngine\RecipeQueryEngine.csproj" />
+  </ItemGroup>
+
 </Project>

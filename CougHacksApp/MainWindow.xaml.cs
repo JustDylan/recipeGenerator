@@ -56,6 +56,7 @@ namespace CougHacksApp
             var e = graph.AddNode("test");
             e.UserData = new List<string>(new [] { "test", "test2"});
             graph.AddEdge("test", "A");
+            
             e.Attr.VisualsChanged += (o, e) => { if (((NodeAttr)o).LineWidth == 2) { MessageBox.Show(o.ToString() + "   " + ((NodeAttr)o).Styles.GetType().ToString()); } };
             //graphViewer.MouseDown += (o, e) => { MessageBox.Show(o.ToString()); };
             //graphViewer.ObjectUnderMouseCursor.
