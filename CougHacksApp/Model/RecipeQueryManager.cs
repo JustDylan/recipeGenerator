@@ -17,7 +17,7 @@
             var recipes = new List<Recipe>();
 
             // Our database is stored locally to demonstrate the portability of our code
-            var connectionString = "Host=localhost;Username=postgres;Password=1;Database=recipedatabase";
+            var connectionString = "Host=localhost;Username=postgres;Password=1004;Database=recipedatabase";
 
             // Construct the SQL query dynamically based on the ingredients list
             var queryBuilder = new StringBuilder();

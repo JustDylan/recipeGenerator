@@ -7,6 +7,7 @@ using Microsoft.Msagl.Drawing;
 using CougHacksApp.Model;
 using CougHacksApp.RecipeGraph;
 using System.Collections.Specialized;
+using CefSharp.DevTools.Emulation;
 
 namespace CougHacksApp
 {
@@ -58,8 +59,8 @@ namespace CougHacksApp
             {
                 RecipeViewModel recipeVM = new RecipeViewModel(rec);
                 RecipeView recipeView = new RecipeView(recipeVM, this.profile);
-                recipeView.ShowDialog();
                 this.profile.AddHistory(rec);
+                recipeView.ShowDialog();
             }
 
             
@@ -194,8 +195,6 @@ namespace CougHacksApp
             {
                 var ingredientVM = DataContext as IngredientViewModel;
                 ingredientVM.AddIngredients(tag);
-
-
             }
         }
 
@@ -206,6 +205,26 @@ namespace CougHacksApp
             int numMatching = foodItems.Count > 2 ? 2 : 1;
 
             CreateGraphFromIngredients(foodItems, numMatching);
+        }
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter) 
+            {
+                this.ingredientVM.AddIngredients(SearchTextBox.Text);
+                this.SearchTextBox.Clear();
+            }
+            else if(e.Key == Key.Down)
+            {
+                SuggestionsPopup.Focus();
+                SuggestionsListBox.Focus();
+                SuggestionsListBox.SelectedItem = SuggestionsListBox.Items[0]; 
+            }
+        }
+
+        private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+            this.ingredientVM.SelectedIngredients.Clear();
         }
     }
 }
