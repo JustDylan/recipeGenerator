@@ -1,9 +1,12 @@
 ﻿using CougHacksApp.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Shapes;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CougHacksApp.Model
 {
@@ -60,5 +63,28 @@ namespace CougHacksApp.Model
             }
         }
 
+        public void Save()
+        {
+            //Saves favorites to a machine readable file
+            File.WriteAllText("favList.txt", string.Empty); // clear file
+            using (StreamWriter favorites = new StreamWriter("favList.txt"))
+                for (int i = 0; i < this.FavRec.Count; i++)
+            {
+                    favorites.WriteLine(this.FavRec[i].ID);
+            }
+        }
+
+        public void Read()
+        {
+            //Read from file
+            string importedID;
+            using (StreamReader favorites = new StreamReader("favList.txt"))
+                while((importedID = favorites.ReadLine()) != null)
+                {
+                    AddFavorite(RecipeQueryManager.RecipeByID(importedID));
+                }
+            
+
+        }
     }
 }
